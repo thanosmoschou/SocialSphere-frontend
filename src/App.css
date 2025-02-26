@@ -1,4 +1,8 @@
-.gradient-primary {
+.horizontal-gradient-primary {
     @apply bg-gradient-to-r from-[#D093FF] via-[#34719F] to-[#000000]
+}
+
+.vertical-gradient-primary {
+    @apply bg-gradient-to-b from-[#D093FF] via-[#34719F] to-[#000000]
 }
 

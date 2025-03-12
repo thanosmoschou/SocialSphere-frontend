@@ -26,6 +26,15 @@ const inputs = [
   },
 ];
 
+const messages = {
+  title: "Enter your personal information to proceed further",
+  header: "Create your account",
+  subheader: "Enter your credentials",
+  button: "Sign Up",
+  linkText: "Already have an account? ",
+  link: "Sign In",
+}
+
 export const SignUp = () => {
   const width = useScreenWidth();
 
@@ -41,7 +50,7 @@ export const SignUp = () => {
             <section
               className={`text-white text-4xl lg:text-5xl xl:text-6xl w-[50%]`}
             >
-              <p>Enter your personal information to proceed further</p>
+              <p>{messages.title}</p>
             </section>
             <section
               className={`text-3xl font-medium text-white flex items-center gap-x-2 `}
@@ -56,9 +65,9 @@ export const SignUp = () => {
           >
             <header className={`text-white text-center`}>
               <h1 className={`text-2xl xl:text-4xl font-medium`}>
-                Create your account
+                {messages.header}
               </h1>
-              <h3 className={`text-sm xl:text-lg`}>Enter your credentials</h3>
+              <h3 className={`text-sm xl:text-lg`}>{messages.subheader}</h3>
             </header>
             <form className="space-y-6 w-[70%] xl:w-[50%]">
               {inputs.map((input) => (
@@ -68,16 +77,16 @@ export const SignUp = () => {
                 type="submit"
                 className="w-full bg-white text-black font-medium py-3 rounded-md hover:bg-gray-200 transition-colors"
               >
-                Sign Up
+                {messages.button}
               </button>
 
               <div className="text-center text-gray-400 text-sm">
-                Already have an account?{" "}
+                {messages.linkText}
                 <a
                   href="/login"
                   className="text-white font-medium hover:underline"
                 >
-                  Log In
+                  {messages.link}
                 </a>
               </div>
             </form>
@@ -96,9 +105,9 @@ export const SignUp = () => {
             </section>
             <header className={`text-white text-center`}>
               <h1 className={`text-2xl xl:text-4xl font-medium`}>
-                Create your account
+                {messages.header}
               </h1>
-              <h3 className={`text-sm xl:text-lg`}>Enter your credentials</h3>
+              <h3 className={`text-sm xl:text-lg`}>{messages.subheader}</h3>
             </header>
             <form className="space-y-6 w-[70%] xl:w-[50%]">
               {inputs.map((input) => (
@@ -108,16 +117,16 @@ export const SignUp = () => {
                 type="submit"
                 className="w-full bg-white text-black font-medium py-3 rounded-md hover:bg-gray-200 transition-colors"
               >
-                Sign Up
+                {messages.button}
               </button>
 
               <div className="text-center text-gray-400 text-sm">
-                Already have an account?{" "}
+                {messages.linkText}
                 <a
                   href="/login"
                   className="text-white font-medium hover:underline"
                 >
-                  Log In
+                  {messages.link}
                 </a>
               </div>
             </form>

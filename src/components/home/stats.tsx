@@ -20,7 +20,7 @@ export const Stats = () => {
          </header>
          {stats.map((stat: Stat, index: number) => {
             return (
-               <section className="flex justify-between items-center w-full">
+               <section className="flex justify-between items-center w-full" key={index}>
                   <section className="flex flex-col items-start gap-y-1">
                      <h2 key={index} className="text-black text-xl font-medium">
                         #{stat.name}

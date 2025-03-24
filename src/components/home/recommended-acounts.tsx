@@ -18,7 +18,7 @@ export const RecommendedAccounts = () => {
             {recommendedAccounts.map(
                (account: RecommendedAccount, index: number) => {
                   return (
-                     <section className="flex gap-x-2 justify-between items-center w-full">
+                     <section className="flex gap-x-2 justify-between items-center w-full" key={index}>
                         <section className="flex items-center gap-x-5">
                            <img
                               src={ProfilePicture}

@@ -10,7 +10,7 @@ export const Hashtags = () => {
         <section className="flex flex-col items-center gap-y-4 bg-white rounded-2xl p-5">
                   {hashtags.map((hashtag: Hashtag, index: number) => {
                      return (
-                        <section className="flex justify-between items-center w-full">
+                        <section className="flex justify-between items-center w-full" key={index}>
                            <section className="flex flex-col items-start gap-y-1">
                               <h2
                                  key={index}

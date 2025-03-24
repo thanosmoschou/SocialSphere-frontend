@@ -65,5 +65,54 @@ export const recommendedAccounts = [
         name: "Dimitris Sparagis",
         username: "@dimapragis"
     },
-    
+]
+
+export const messages = [
+    {
+        sender: "Dimitris",
+        recipient: "Andreas",
+        conversation: [
+            {
+                name: "Andreas",
+                message: "Hello, how are you?",
+                time: "12:00"
+            },
+            {
+                name: "Dimitris",
+                message: "I am fine, how are you?",
+                time: "12:01"
+            },
+            {
+                name: "Andreas",
+                message: "I am fine, thanks for asking!",
+                time: "12:02"
+            },
+            {
+                name: "Dimitris",
+                message: "Ok nice to hear that!",
+                time: "12:03"
+            }
+        ]
+    },
+    {
+        sender: "Dimitris",
+        recipient: "Thanos",
+        conversation: [
+            {
+                name: "Thanos",
+                message: "Hello Thanos, how are you?",
+                time: "12:00"
+            },
+            {
+                name: "Dimitris",
+                message: "I am fine, how are you?",
+                time: "12:01"
+            },
+            {
+                name: "Thanos",
+                message: "I am fine, thanks for asking!",
+                time: "12:02"
+            },
+        ]
+    }
 ]

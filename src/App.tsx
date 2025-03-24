@@ -7,6 +7,7 @@ import { Feed } from "./components/feed/feed";
 import { MessageList } from "./components/messages/message-list";
 import { NotFound } from "./components/home/not-found";
 import { NavProvider } from "./store/nav-context";
+import { Message } from "./components/messages/message";
 
 function App() {
    return (
@@ -14,15 +15,13 @@ function App() {
       <NavProvider>
          <Routes>
             <Route path="/sign-up" element={<SignUp />} />
-         <Route path="/sign-in" element={<SignIn />} />
-         <Route path="/" element={<Home />} >
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/messages" element={<MessageList />} />
-         </Route>
-            <Route 
-              path="*" 
-              element={<NotFound />} 
-            />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/" element={<Home />}>
+               <Route path="/feed" element={<Feed />} />
+               <Route path="/messages" element={<MessageList />} />
+               <Route path="/messages/:id" element={<Message />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
          </Routes>
       </NavProvider>
    );

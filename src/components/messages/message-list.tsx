@@ -31,7 +31,7 @@ export const MessageList = () => {
         console.log("Context in MessageList",context);
     }, [context]);
     return (
-        <div className="flex flex-col h-[calc(100vh-4rem)] bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
             <div className="flex-1 overflow-y-auto">
                 {messagesList.map((message, index) => (
                     <Link

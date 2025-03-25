@@ -16,9 +16,9 @@ export const Message = () => {
     console.log(message);
 
     return (
-        <div className="flex flex-col h-[calc(100vh-4rem)] bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
             {/* Messages Header */}
-            <div className="p-4 border-b flex items-center gap-x-2">
+            <div className="p-4 flex items-center gap-x-2">
                 <Link to="/messages" className="flex items-center gap-x-2">
                     <ArrowBackIosNewIcon />
                 </Link>

@@ -42,7 +42,7 @@ export const NavBar = () => {
    const [active, setActive] = useState(context.currentPage);
 
    useEffect(() => {
-      console.log(context);
+      setActive(context.currentPage);
    }, [context]);
 
    return (

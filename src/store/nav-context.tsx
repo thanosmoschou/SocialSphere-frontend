@@ -18,7 +18,6 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
 
    // Sync route with context(when the location (route) changes, the active page is updated)
    useEffect(() => {
-      console.log("Nav context",location.pathname);
       if (location.pathname === "/") {
          setActive("feed");
          navigate("/feed");

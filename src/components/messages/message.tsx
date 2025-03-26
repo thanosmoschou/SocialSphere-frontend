@@ -1,9 +1,8 @@
-import React from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { messages } from '../../../data/data';
 import ProfilePicture from '../../assets/profile-picture.png';
 import { Link, useParams } from 'react-router-dom';
-interface Message {
+type Message = {
     name: string;
     message: string;
     time: string;
@@ -11,9 +10,7 @@ interface Message {
 
 export const Message = () => {
     const { id } = useParams();
-    console.log(id);
     const message = messages.find((message) => message.recipient === id);
-    console.log(message);
 
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
@@ -22,7 +19,7 @@ export const Message = () => {
                 <Link to="/messages" className="flex items-center gap-x-2">
                     <ArrowBackIosNewIcon />
                 </Link>
-                <h2 className="text-xl font-semibold text-gray-800">Andreas</h2>
+                <h2 className="text-xl font-semibold text-gray-800">{message?.recipient}</h2>
             </div>
 
             {/* Messages List */}

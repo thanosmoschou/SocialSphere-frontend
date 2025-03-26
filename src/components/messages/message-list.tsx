@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
 import ProfilePicture from '../../assets/profile-picture.png';
 import { Link } from 'react-router-dom';
-import { useNavContext } from '../../store/nav-context';
 
 interface MessagePreview {
     recipientName: string;
@@ -25,19 +23,18 @@ const messagesList: MessagePreview[] = [
 ];
 
 export const MessageList = () => {
-    const context = useNavContext();
-    
-    useEffect(() => {
-        console.log("Context in MessageList",context);
-    }, [context]);
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
+            <header className="p-6">
+                <h1 className="text-2xl font-semibold text-gray-800">My messages</h1>
+                <p className="text-gray-500 mt-1">Chat with your friends</p>
+            </header>
             <div className="flex-1 overflow-y-auto">
                 {messagesList.map((message, index) => (
                     <Link
                         to={`/messages/${message.recipientName}`}
                         key={index}
-                        className="w-full p-4 flex items-center gap-x-4 hover:bg-gray-50 hover:cursor-pointer rounded-lg border-b border-gray-100 transition-colors"
+                        className="w-full p-6 flex items-center gap-x-4 hover:bg-gray-50 hover:cursor-pointer rounded-lg border-b border-gray-100 transition-colors"
                     >
                         <div className="relative">
                             <img 

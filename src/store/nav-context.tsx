@@ -21,6 +21,8 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
       if (location.pathname === "/") {
          setActive("feed");
          navigate("/feed");
+      } else if (location.pathname.includes("/profile")) {
+         setActive("friends");
       } else {
          setActive(location.pathname.split("/")[1]);
       }

@@ -28,7 +28,7 @@ const navItems = [
    {
       icon: <PersonIcon />,
       label: "My Profile",
-      path: "/profile",
+      path: "/myprofile",
    },
    {
       icon: <SettingsIcon />,
@@ -64,11 +64,11 @@ export const NavBar = () => {
                {navItems.map((item, index) => (
                   <section
                      onClick={() => {
-                        setActive(item.label.toLowerCase());
-                        context.setCurrentPage(item.label.toLowerCase());
+                        setActive(item.label.replace(" ", "").toLowerCase());
+                        context.setCurrentPage(item.label.replace(" ", "").toLowerCase());
                      }}
                      className={`${
-                        active === item.label.toLowerCase()
+                        active === item.label.replace(" ", "").toLowerCase()
                            ? "bg-white text-black rounded-2xl"
                            : "bg-black text-white"
                      } flex items-center gap-x-5 w-full p-5 hover:cursor-pointer`}

@@ -116,3 +116,38 @@ export const messages = [
         ]
     }
 ]
+
+export const friends = [
+    {
+        name: "Dimitris",
+        username: "@dimapragis",
+        bio: "Software Engineer at Google",
+        status: "online",
+        skills: ["React", "Node.js", "Typescript"],
+        skills_color: "bg-blue-100 text-blue-800"
+    },
+    {
+        name: "Thanos",
+        username: "@thanos",
+        bio: "Backend Engineer at Google",
+        status: "offline",
+        skills: ["Spring Boot", "Java", "SQL"],
+        skills_color: "bg-green-100 text-green-800"
+    },
+    {
+        name: "Andreas",
+        username: "@andreas",
+        bio: "UI/UX Designer at Google",
+        status: "online",
+        skills: ["Figma", "Adobe XD", "Sketch"],
+        skills_color: "bg-red-100 text-red-800"
+    },
+    {
+        name: "Elena",
+        username: "@elena",
+        bio: "Software Engineer at Google",
+        status: "offline",
+        skills: ["React", "Node.js", "Typescript"],
+        skills_color: "bg-purple-100 text-purple-800"
+    },
+]      

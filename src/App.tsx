@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { SignIn } from "./components/auth/sign-in";
-import { SignUp } from "./components/auth/sign-up";
-import { Home } from "./components/home/home";
+import { SignIn } from "./pages/sign-in";
+import { SignUp } from "./pages/sign-up";
+import { Home } from "./pages/home";
 import { Feed } from "./components/feed/feed";
 // import { MessageList } from "./components/messages/message-list";
 import { NotFound } from "./components/home/not-found";

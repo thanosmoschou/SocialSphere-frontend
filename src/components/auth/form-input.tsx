@@ -4,6 +4,8 @@ type InputProps = {
     type: string;
     placeholder: string;
     required: boolean;
+    minLength?: number;
+    onChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = (props: InputProps) => {
@@ -18,7 +20,9 @@ export const Input = (props: InputProps) => {
                 type={props.type}
                 placeholder={props.placeholder}
                 className="w-full px-4 py-3 bg-[#1a1a1a] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                minLength={props?.minLength}
                 required
+                onChange={props.onChange}
             />
             {
                 props.label === "Password" && (

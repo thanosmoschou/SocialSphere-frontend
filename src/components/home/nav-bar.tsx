@@ -8,7 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavContext } from "../../store/nav-context";
 import { useEffect, useState } from "react";
-
+import { useUserContext } from "../../store/user-context";
 const navItems = [
    {
       icon: <FeedIcon />,
@@ -40,7 +40,7 @@ const navItems = [
 export const NavBar = () => {
    const context = useNavContext();
    const [active, setActive] = useState(context.currentPage);
-
+   const { user } = useUserContext();
    useEffect(() => {
       setActive(context.currentPage);
    }, [context]);
@@ -55,7 +55,7 @@ export const NavBar = () => {
                </section>
                <section className="flex flex-col items-center text-center">
                   <h1 className="text-white text-3xl font-medium">
-                     User Name
+                     {user?.email}
                   </h1>
                   <p className="text-secondaryGray text-lg">@user-name</p>
                </section>

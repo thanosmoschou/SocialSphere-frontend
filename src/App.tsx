@@ -7,27 +7,33 @@ import { Feed } from "./components/feed/feed";
 // import { MessageList } from "./components/messages/message-list";
 import { NotFound } from "./components/home/not-found";
 import { NavProvider } from "./store/nav-context";
+import { ProtectedRoute } from "./routes/protected-route";
+import { UserProvider } from "./store/user-context";
 // import { Message } from "./components/messages/message";
 // import { Friends } from "./components/friends/friends";
 // import { Profile } from "./components/profile/profile";
 function App() {
    return (
       // Route configuration
-      <NavProvider>
-         <Routes>
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/" element={<Home />}>
-               <Route path="/feed" element={<Feed />} />
-               {/* <Route path="/messages" element={<MessageList />} />
+      <UserProvider>
+         <NavProvider>
+            <Routes>
+               <Route path="/sign-up" element={<SignUp />} />
+               <Route path="/sign-in" element={<SignIn />} />
+               <Route path="/" element={<ProtectedRoute />}>
+                  <Route path="/" element={<Home />}>
+                     <Route path="/feed" element={<Feed />} />
+                     {/* <Route path="/messages" element={<MessageList />} />
                <Route path="/messages/:id" element={<Message />} />
                <Route path="/friends" element={<Friends />} />
                <Route path="/profile/:username" element={<Profile />} />
                <Route path="/myprofile" element={<Profile />} /> */}
-            </Route>
-            <Route path="*" element={<NotFound />} />
-         </Routes>
-      </NavProvider>
+                  </Route>
+               </Route>
+               <Route path="*" element={<NotFound />} />
+            </Routes>
+         </NavProvider>
+      </UserProvider>
    );
 }
 

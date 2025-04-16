@@ -1,11 +1,13 @@
 // src/api/auth.ts
-import { backendUrl } from "../lib/constants";
+import { apiUrl } from "../lib/constants";
 import { useNavigate } from "react-router-dom";
+
 export const loginUser = async (credentials: {
    username: string;
    password: string;
 }) => {
-   const res = await fetch(`${backendUrl}/auth/authenticate`, {
+   // Use apiFetch to login
+   const res = await fetch(`${apiUrl}/authenticate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
@@ -24,7 +26,7 @@ export const registerUser = async (userData: {
    password: string;
    email: string;
 }) => {
-   const res = await fetch(`${backendUrl}/auth/register`, {
+   const res = await fetch(`${apiUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
@@ -38,35 +40,35 @@ export const registerUser = async (userData: {
    return data;
 };
 
+// src/lib/tryRefreshToken.ts
 export const tryRefreshToken = async (): Promise<string | null> => {
    const refreshToken = localStorage.getItem("refreshToken");
    if (!refreshToken) return null;
-
+ 
    try {
-      const res = await fetch(`${backendUrl}/auth/refresh`, {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({ refreshToken }),
-      });
-
-      if (!res.ok) return null;
-
-      const data = await res.json(); // { accessToken }
-      localStorage.setItem("accessToken", data.accessToken);
-      return data.accessToken;
+     const res = await fetch("http://localhost:8080/api/auth/refresh", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({ refreshToken }),
+     });
+ 
+     if (!res.ok) return null;
+ 
+     const data = await res.json(); // { accessToken: "..." }
+     localStorage.setItem("accessToken", data.accessToken);
+     return data.accessToken;
    } catch (err) {
-      console.error("Refresh token failed:", err);
-      return null;
+     console.error("Refresh failed:", err);
+     return null;
    }
-};
+ };
+ 
 
 export const logout = () => {
-    const navigate = useNavigate();
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    navigate("/sign-in");
+   const navigate = useNavigate();
+   localStorage.removeItem("accessToken");
+   localStorage.removeItem("refreshToken");
+   navigate("/sign-in");
 };
 
 export const apiFetch = async (url: string, options: RequestInit = {}, retry = true): Promise<any> => {
@@ -84,9 +86,12 @@ export const apiFetch = async (url: string, options: RequestInit = {}, retry = t
   if (res.status === 401 && retry) {
     const newToken = await tryRefreshToken();
     if (newToken) {
-      return apiFetch(url, options, false); // Retry once
+      return apiFetch(url, options, false); // Retry once with new token
     } else {
-      throw new Error("Session expired. Please log in again.");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      window.location.href = "/sign-in";
+      return;
     }
   }
 
@@ -98,4 +103,3 @@ export const apiFetch = async (url: string, options: RequestInit = {}, retry = t
   return res.json();
 };
 
-  

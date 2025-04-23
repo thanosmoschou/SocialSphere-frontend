@@ -35,20 +35,6 @@ const messages = {
 export const SignIn = () => {
    const width = useScreenWidth();
 
-  //  console.log(width);
-
-   // const custompost = async () => {
-   //   const req = await fetch("http://localhost:8080/user/hello2", {
-   //     method: "GET",
-   //     headers: {
-   //       "Content-Type": "application/json",
-   //     },
-   //   });
-
-   //   const res = await req.text(); // if expecting JSON
-   //   console.log(res);
-   // }
-
    return (
       <>
          {width && width > 768 ? (

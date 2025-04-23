@@ -16,10 +16,13 @@ type FormData = {
 
 export const Form = (props: FormProps) => {
     const [formData, setFormData] = useState<FormData>({});
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        // Clear error when user starts typing again
+        if (error) setError(null);
     }
 
     const login = useLogin((data) => {
@@ -28,6 +31,7 @@ export const Form = (props: FormProps) => {
         console.log("login successful");
     }, (error) => {
         console.log(error);
+        setError(error.message || "Login failed. Please try again.");
     });
 
     const register = useRegister((data) => {
@@ -36,11 +40,13 @@ export const Form = (props: FormProps) => {
         console.log("register successful");
     }, (error) => {
         console.log(error);
+        setError(error.message || "Registration failed. Please try again.");
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(formData);
+        setError(null); // Clear any previous errors
 
         if (props.info.formType === "sign-in") {
             login.mutate({ 
@@ -58,6 +64,11 @@ export const Form = (props: FormProps) => {
 
     return (
         <form className="space-y-6 w-[70%] xl:w-[50%]" onSubmit={handleSubmit}>
+            {error && (
+                <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-3 rounded-md text-sm">
+                    {error}
+                </div>
+            )}
             {props.inputs.map((input) => (
                 <Input 
                     {...input} 

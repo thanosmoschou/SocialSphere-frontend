@@ -9,8 +9,8 @@ import { useUserContext } from "../store/user-context";
 import { useEffect } from "react";
 export const Home = () => {
    // Get access token, decode it and get the user
-   const { accessToken } = useAuth();
-   if (!accessToken) {
+   const { isAuthenticated, accessToken } = useAuth();
+   if (!isAuthenticated) {
       return <Navigate to="/sign-in" />;
    }
    const {
@@ -18,7 +18,7 @@ export const Home = () => {
       isLoading,
       isError,
       isSuccess,
-   } = useUser(decodeJwt(accessToken).sub);
+   } = useUser(decodeJwt(accessToken!).sub);
 
    // Update the user context
    const { setUser } = useUserContext();

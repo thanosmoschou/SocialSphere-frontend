@@ -55,7 +55,8 @@ export const Form = (props: FormProps) => {
             });
         } else if (props.info.formType === "sign-up") {
             register.mutate({ 
-                username: formData.username, 
+                displayName: formData.displayName,
+                profileName: formData.profileName, 
                 password: formData.password, 
                 email: formData.email 
             });

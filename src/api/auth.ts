@@ -22,10 +22,12 @@ export const loginUser = async (credentials: {
 };
 
 export const registerUser = async (userData: {
-   username: string;
+   displayName: string;
+   profileName: string;
    password: string;
    email: string;
 }) => {
+   console.log(userData);
    const res = await fetch(`${apiUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

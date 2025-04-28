@@ -60,9 +60,9 @@ export const NavBar = () => {
                </section>
                <section className="flex flex-col items-center text-center">
                   <h1 className="text-white text-3xl font-medium">
-                     {user?.email}
+                     {user?.profileName}
                   </h1>
-                  <p className="text-secondaryGray text-lg">@user-name</p>
+                  <p className="text-secondaryGray text-lg">@{user?.displayName}</p>
                </section>
             </header>
             <section className="flex flex-col gap-y-5 w-full">

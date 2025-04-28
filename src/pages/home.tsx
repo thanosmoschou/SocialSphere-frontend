@@ -20,6 +20,8 @@ export const Home = () => {
       isSuccess,
    } = useUser(decodeJwt(accessToken!).sub);
 
+   console.log("user", user?.displayName);
+
    // Update the user context
    const { setUser } = useUserContext();
 

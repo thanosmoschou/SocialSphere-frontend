@@ -6,9 +6,12 @@ import MessageIcon from "@mui/icons-material/Message";
 import GroupIcon from "@mui/icons-material/Group";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AddIcon from "@mui/icons-material/Add";
 import { useNavContext } from "../../store/nav-context";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../store/user-context";
+import { PostModal } from "./post-modal";
+
 const navItems = [
    {
       icon: <FeedIcon />,
@@ -40,7 +43,9 @@ const navItems = [
 export const NavBar = () => {
    const context = useNavContext();
    const [active, setActive] = useState(context.currentPage);
+   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
    const { user } = useUserContext();
+
    useEffect(() => {
       setActive(context.currentPage);
    }, [context]);
@@ -78,6 +83,13 @@ export const NavBar = () => {
                      <p className="text-xl font-medium">{item.label}</p>
                   </section>
                ))}
+               <section
+                  onClick={() => setIsPostModalOpen(true)}
+                  className="flex items-center gap-x-5 w-full p-5 hover:cursor-pointer bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors"
+               >
+                  <AddIcon />
+                  <p className="text-xl font-medium">Post</p>
+               </section>
             </section>
          </section>
          <section className="pl-10">
@@ -88,6 +100,7 @@ export const NavBar = () => {
                <p className="text-white text-2xl font-medium">@SocialSphere</p>
             </section>
          </section>
+         <PostModal open={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} />
       </section>
    );
 };

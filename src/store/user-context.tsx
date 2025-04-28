@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 type User = {
     id:number;
     email:string;
-    username:string;
     profileName:string;
+    displayName:string;
     posts:[];
     role:string;
     followers:[];

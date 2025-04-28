@@ -2,15 +2,22 @@ import Logo from "../assets/logo.png";
 import { useScreenWidth } from "../hooks/use-screenwidth";
 import { AuthForm } from "../components/auth/auth";
 import { AuthFormSm } from "../components/auth/auth-sm";
-import { useRegister } from "../features/use-register";
+
 const inputs = [
    {
-      label: "Username",
-      name: "username",
+      label: "Profile Name",
+      name: "profileName",
       type: "text",
       placeholder: "Dimitris",
       required: true,
       minLength: 1,
+   },
+   {
+      label: "Display Name",
+      name: "displayName",
+      type: "text",
+      placeholder: "dimsparagis",
+      required: true,
    },
    {
       label: "Email",
@@ -42,10 +49,6 @@ const messages = {
 
 export const SignUp = () => {
    const width = useScreenWidth();
-
-  //  const register = useRegister(
-
-  //  );
 
    return (
       <>

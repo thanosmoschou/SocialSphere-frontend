@@ -1,37 +1,49 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { decodeJwt } from "../lib/decodeJWT";
+import { Post, User } from "../types/types";
+import { useUser } from "../hooks/use-user";
+import { fetchUser } from "../api/user";
+import { useAuth } from "../hooks/use-auth";
 
-type User = {
-    id:number;
-    email:string;
-    profileName:string;
-    displayName:string;
-    posts:[];
-    role:string;
-    followers:[];
-    following:[];
-}
 
 type UserContextType = {
    user: User | null;
    setUser: (user: User) => void;
+   refetchUser: () => Promise<void>;
 };
 
 export const UserContext = createContext<UserContextType>({
    user: null,
    setUser: () => {},
+   refetchUser: () => Promise.resolve(),
 });
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
    const [user, setUser] = useState<User | null>(null);
+   const { accessToken } = useAuth();
 
    const setUserState = (user: User) => {
-      console.log("User Context:",user);
+      // console.log("User Context:",user);
       setUser(user);
    };
 
+   const refetchUser = async () => {
+      const userData = await fetchUser(decodeJwt(accessToken!).sub);
+      console.log("Refetching User:", userData);
+      const skills = userData.skills?.split(',').map((skill: string) => skill.trim());
+      const interests = userData.interests?.split(',').map((interest: string) => interest.trim());
+      const userWithArrays = {
+         ...userData,
+         skills: skills,
+         interests: interests
+      };
+      setUser(userWithArrays);
+   }
+   
+
    return (
       <UserContext.Provider
-         value={{ user, setUser: setUserState }}
+         value={{ user, setUser: setUserState, refetchUser }}
       >
          {children}
       </UserContext.Provider>

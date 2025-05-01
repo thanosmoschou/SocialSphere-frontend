@@ -79,8 +79,8 @@ export const apiFetch = async (url: string, options: RequestInit = {}, retry = t
   const res = await fetch(url, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+      "Content-Type": "application/json",
       ...(options.headers || {}),
     },
   });
@@ -101,7 +101,12 @@ export const apiFetch = async (url: string, options: RequestInit = {}, retry = t
     const error = await res.text();
     throw new Error(error || "Request failed");
   }
-
-  return res.json();
+  // If the response is a json, return the json
+  if (res.headers.get("content-type")?.includes("application/json")) {
+    const data = await res.json();
+    return data;
+  } else {
+    return res.text();
+  }
 };
 

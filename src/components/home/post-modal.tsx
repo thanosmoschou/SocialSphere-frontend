@@ -15,7 +15,8 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
     const [postContent, setPostContent] = useState("");
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const { user } = useUserContext();
+    const { user, setUser, refetchUser } = useUserContext();
+    
     const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -28,15 +29,20 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
         }
     };
 
-    const handlePost = () => {
+    const handlePost = async () => {
         // TODO: Implement post functionality with title, content, and image
-        console.log("Posting:", { postTitle, postContent, selectedImage });
-        createPost({
+        if (!user?.userId) {
+            console.error("User ID is not available");
+            return;
+        }
+        await createPost({
             title: postTitle,
-            content: postContent,
-            image: selectedImage,
-            creatorId: user?.id || null,
+            description: postContent,
+            imageUrl: "",
+            creatorId: user.userId || null,
         });
+        // Update the user context
+        await refetchUser();
         // Clear all fields
         handleClose();
     };

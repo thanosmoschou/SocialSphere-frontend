@@ -1,16 +1,38 @@
 import { backendUrl } from "../lib/constants";
 import { apiFetch } from "./auth";
+import { useUserContext } from "../store/user-context";
+import { CommentDTO } from "../types/types";
 
-type Post = {
-    title: string;
-    content: string | null;
-    image: File | null;
-    creatorId: number | null;
-}
+export type Post = {
+   title: string;
+   description: string | null;
+   imageUrl: string | null;
+   creatorId: number | null;
+};
 
 export const createPost = async (post: Post) => {
-   const response = await apiFetch(`${backendUrl}/post/create`, {
+   console.log(post);
+   await apiFetch(`${backendUrl}/post/create`, {
       method: "POST",
       body: JSON.stringify(post),
    });
 };
+
+export const likePost = async(postId: number, userId: number) => {
+   await apiFetch(`${backendUrl}/post/${postId}/like?userId=${userId}`, {
+      method: "POST",
+   });
+};
+
+export const createComment = async (comment: CommentDTO) => {
+   await apiFetch(`${backendUrl}/post/comment`, {
+      method: "POST",
+      body: JSON.stringify({
+         content: comment.content,
+         userId: comment.userId,
+         postId: comment.postId
+      }),
+   });
+};
+
+

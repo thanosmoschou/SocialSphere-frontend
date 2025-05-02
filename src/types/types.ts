@@ -51,3 +51,18 @@ export type CommentDTO = {
 };
 
 
+export type UserProfile = {
+   name: string;
+   username: string;
+   bio: string;
+   location: string;
+   joinedDate: string;
+   stats: {
+       posts: number;
+       followers: number;
+       following: number;
+   };
+   isOwnProfile: boolean;
+}
+
+

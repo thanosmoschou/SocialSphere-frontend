@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfilePicture from '../../assets/profile-picture.png';
 import { Post } from '../feed/post';
 import { About } from './about';
@@ -9,45 +9,15 @@ import { Stats } from './stats';
 import { useUserContext } from '../../store/user-context';
 import { Dialog, DialogContent } from '@mui/material';
 import { ProfileEditForm } from './profile-edit-form';
-import { useUser } from '../../hooks/use-user';
-import { useAuth } from '../../hooks/use-auth';
-import { Post as PostType } from '../../types/types';
-import { decodeJwt } from '../../lib/decodeJWT';
-
-export type UserProfile = {
-    name: string;
-    username: string;
-    bio: string;
-    location: string;
-    joinedDate: string;
-    stats: {
-        posts: number;
-        followers: number;
-        following: number;
-    };
-    isOwnProfile: boolean;
-}
-
-export const userProfile: UserProfile = {
-    name: "Dimitris Sparagis",
-    username: "@dimsparagis",
-    bio: "Software Developer | Tech Enthusiast | Coffee Lover",
-    location: "Athens, Greece",
-    joinedDate: "January 2024",
-    stats: {
-        posts: 42,
-        followers: 1234,
-        following: 567
-    },
-    isOwnProfile: true
-};
+import { useProfile } from '../../hooks/use-profile';
+import { Post as PostType, UserProfile } from '../../types/types';
 
 export const Profile = () => {
     const context = useNavContext();
     const [isOwnProfile, setIsOwnProfile] = useState(context.currentPage === "myprofile");
     const [activeTab, setActiveTab] = useState("posts");
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const { data: user } = useUser();
+    const { data: profile } = useProfile();
     const { user: userContext } = useUserContext();
 
     useEffect(() => {

@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { useUserContext } from "../../store/user-context";
+import { useState, useEffect } from "react";
 import { User } from "../../types/types";
+import { FriendCard } from "./friend-card";
 import { apiFetch } from "../../api/auth";
 import { backendUrl } from "../../lib/constants";
 import { useQuery } from "@tanstack/react-query";
-import { FriendCard } from "../user/friend-card";
 
 type TabOptions = "followers" | "following";
 
-export const FriendsSection = () => {
+export const FriendsSection = ({ user }: { user: User }) => {
    const [activeTab, setActiveTab] = useState<TabOptions>("followers");
    const [searchQuery, setSearchQuery] = useState("");
-   const { user } = useUserContext();
 
    // Function to fetch follower user details
    const fetchUserDetails = async (userIds: any[]) => {
@@ -33,15 +31,15 @@ export const FriendsSection = () => {
 
    // Queries for followers and following
    const { data: followersData = [], isLoading: followersLoading } = useQuery({
-      queryKey: ["myFollowers", user?.userId],
-      queryFn: () => fetchUserDetails(user?.followers || []),
-      enabled: !!user && Array.isArray(user.followers)
+      queryKey: ["followers", user.userId],
+      queryFn: () => fetchUserDetails(user.followers || []),
+      enabled: Array.isArray(user.followers)
    });
 
    const { data: followingData = [], isLoading: followingLoading } = useQuery({
-      queryKey: ["myFollowing", user?.userId],
-      queryFn: () => fetchUserDetails(user?.following || []),
-      enabled: !!user && Array.isArray(user.following)
+      queryKey: ["following", user.userId],
+      queryFn: () => fetchUserDetails(user.following || []),
+      enabled: Array.isArray(user.following)
    });
 
    // Filter users based on search query
@@ -56,22 +54,18 @@ export const FriendsSection = () => {
          );
       });
 
-   if (!user) {
-      return <div className="text-center py-10 text-gray-400">Loading user data...</div>;
-   }
-
    return (
       <div className="space-y-6">
          {/* Tabs */}
          <div className="flex border-b border-gray-700">
             <button 
-               className={`py-3 px-6 font-medium ${activeTab === "followers" ? "text-primary border-b-2 border-primary text-white" : "text-gray-400"}`}
+               className={`py-3 px-6 font-medium ${activeTab === "followers" ? "text-primary border-b-2 border-primary" : "text-gray-400"}`}
                onClick={() => setActiveTab("followers")}
             >
                Followers ({Array.isArray(user.followers) ? user.followers.length : 0})
             </button>
             <button 
-               className={`py-3 px-6 font-medium ${activeTab === "following" ? "text-primary border-b-2 border-primary text-white" : "text-gray-400"}`}
+               className={`py-3 px-6 font-medium ${activeTab === "following" ? "text-primary border-b-2 border-primary" : "text-gray-400"}`}
                onClick={() => setActiveTab("following")}
             >
                Following ({Array.isArray(user.following) ? user.following.length : 0})

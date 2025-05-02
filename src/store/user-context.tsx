@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { decodeJwt } from "../lib/decodeJWT";
-import { Post, User } from "../types/types";
-import { useUser } from "../hooks/use-user";
+import { User } from "../types/types";
 import { fetchUser } from "../api/user";
 import { useAuth } from "../hooks/use-auth";
 

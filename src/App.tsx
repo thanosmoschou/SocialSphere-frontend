@@ -12,6 +12,7 @@ import { UserProvider } from "./store/user-context";
 import { Message } from "./components/messages/message";
 import { Friends } from "./components/friends/friends";
 import { Profile } from "./components/profile/profile";
+import { User } from "./components/user/user";
 
 function App() {
    return (
@@ -27,7 +28,7 @@ function App() {
                      <Route path="/messages" element={<MessageList />} />
                      <Route path="/messages/:id" element={<Message />} />
                      <Route path="/friends" element={<Friends />} />
-                     <Route path="/profile/:username" element={<Profile />} />
+                     <Route path="/profile/:userId" element={<User />} />
                      <Route path="/myprofile" element={<Profile />} />
                   </Route>
                </Route>

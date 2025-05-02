@@ -28,3 +28,19 @@ export const updatePrimaryInfo = (user: User) => {
     body: JSON.stringify(updatedUser),
   });
 };
+
+export const followUser = (sender: User, receiver: User) => {
+  return apiFetch(`${backendUrl}/user/${sender.userId}/follow/${receiver.userId}`, {
+    method: "POST",
+  });
+};
+
+export const unfollowUser = (sender: User, receiver: User) => {
+  return apiFetch(`${backendUrl}/user/${sender.userId}/unfollow/${receiver.userId}`, {
+    method: "POST",
+  });
+};
+
+export const getFriends = () => {
+  return apiFetch(`${backendUrl}/user/all`);
+};

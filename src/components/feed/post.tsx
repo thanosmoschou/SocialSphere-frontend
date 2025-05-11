@@ -9,7 +9,7 @@ import { usePostTime } from "../../hooks/use-post-time";
 import { useEffect, useState } from "react";
 import { useLike } from "../../features/use-like";
 import { CommentModal } from "../home/comment-modal";
-import { useUserById } from "../../hooks/use-user-by-id";
+import { useUsersById } from "../../hooks/use-users-by-id";
 
 export const Post = ({ post }: { post: PostType }) => {
    const { user } = useUserContext();
@@ -20,7 +20,7 @@ export const Post = ({ post }: { post: PostType }) => {
 
    // Get all comment users' data
    const commentUserIds = post.comments.map((comment) => comment.userCommented);
-   const commentUsers = commentUserIds.map((id) => useUserById(id));
+   const { data: commentUsers } = useUsersById(commentUserIds);
 
    useEffect(() => {
       if (post.usersLiked.includes(user!.userId)) {
@@ -100,15 +100,13 @@ export const Post = ({ post }: { post: PostType }) => {
                         <div className="flex-1 flex flex-col gap-y-3 bg-gray-100 rounded-lg p-3">
                            <section className="flex justify-between items-start gap-x-2 ">
                               <section className="flex flex-col">
-                                    <h2 className="text-lg text-gray-800 font-medium">
-                                        {commentUsers[index]?.data?.profileName ||
-                                            "Loading..."}
-                                    </h2>
-                                    <p className="text-xs text-gray-500">
-                                        {commentUsers[index]?.data?.displayName ||
-                                            "Loading..."}
-                                    </p>
-                                </section>
+                                 <h2 className="text-lg text-gray-800 font-medium">
+                                    {commentUsers?.[index]?.profileName || "Loading..."}
+                                 </h2>
+                                 <p className="text-xs text-gray-500">
+                                    {commentUsers?.[index]?.displayName || "Loading..."}
+                                 </p>
+                              </section>
                               <span className="text-xs text-gray-500">
                                  {usePostTime(comment.date)} ago
                               </span>

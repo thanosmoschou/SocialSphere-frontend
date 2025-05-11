@@ -15,11 +15,11 @@ export const CommentModal = ({ open, onClose, postId }: CommentModalProps) => {
     const { user } = useUserContext();
     const { comment, isCommentPending } = useComment(postId, user?.userId || 0);
 
-    const handleComment = async () => {
+    const handleComment = () => {
         if (!user?.userId || !commentContent.trim()) {
             return;
         }
-        await comment(commentContent);
+        comment(commentContent);
         handleClose();
     };
 

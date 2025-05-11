@@ -59,13 +59,13 @@ export const FriendsSection = ({ user }: { user: User }) => {
          {/* Tabs */}
          <div className="flex border-b border-gray-700">
             <button 
-               className={`py-3 px-6 font-medium ${activeTab === "followers" ? "text-primary border-b-2 border-primary" : "text-gray-400"}`}
+               className={`py-3 px-6 font-medium ${activeTab === "followers" ? "text-primary border-b-2 border-primary text-white" : "text-gray-400"}`}
                onClick={() => setActiveTab("followers")}
             >
                Followers ({Array.isArray(user.followers) ? user.followers.length : 0})
             </button>
             <button 
-               className={`py-3 px-6 font-medium ${activeTab === "following" ? "text-primary border-b-2 border-primary" : "text-gray-400"}`}
+               className={`py-3 px-6 font-medium ${activeTab === "following" ? "text-primary border-b-2 border-primary text-white" : "text-gray-400"}`}
                onClick={() => setActiveTab("following")}
             >
                Following ({Array.isArray(user.following) ? user.following.length : 0})

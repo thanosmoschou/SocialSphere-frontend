@@ -9,15 +9,13 @@ import { Stats } from './stats';
 import { useUserContext } from '../../store/user-context';
 import { Dialog, DialogContent } from '@mui/material';
 import { ProfileEditForm } from './profile-edit-form';
-import { useProfile } from '../../hooks/use-profile';
-import { Post as PostType, UserProfile } from '../../types/types';
+import { Post as PostType } from '../../types/types';
 
 export const Profile = () => {
     const context = useNavContext();
     const [isOwnProfile, setIsOwnProfile] = useState(context.currentPage === "myprofile");
     const [activeTab, setActiveTab] = useState("posts");
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const { data: profile } = useProfile();
     const { user: userContext } = useUserContext();
 
     useEffect(() => {

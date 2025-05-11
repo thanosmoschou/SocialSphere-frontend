@@ -1,5 +1,3 @@
-import { userProfile } from "./profile";
-import { useNavContext } from "../../store/nav-context";
 import { useUserContext } from "../../store/user-context";
 
 export const About = () => {
@@ -70,7 +68,7 @@ export const About = () => {
                         <span className="w-24 text-gray-500">Email</span>
                         <span className="text-gray-800">{user?.email || "Not specified"}</span>
                     </div>
-                    {user?.userLinks[1]! && (
+                    {(user?.userLinks[1]! && user?.userLinks[1].url !== null) && (
                         <div className="flex items-center">
                             <span className="w-24 text-gray-500">GitHub</span>
                             <a href={user.userLinks[1].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
@@ -78,7 +76,7 @@ export const About = () => {
                             </a>
                         </div>
                     )}
-                    {user?.userLinks[0]! && (
+                    {(user?.userLinks[0]! && user?.userLinks[0].url !== null) && (
                         <div className="flex items-center">
                             <span className="w-24 text-gray-500">LinkedIn</span>
                             <a href={user.userLinks[0].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">

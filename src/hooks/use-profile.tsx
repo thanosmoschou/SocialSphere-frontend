@@ -18,8 +18,14 @@ export const useProfile = () => {
       if (isSuccess && data) {
          // Split skills and interests into arrays
          console.log("Data:", data);
-         const skills = data.skills?.split(',').map((skill: string) => skill.trim());
-         const interests = data.interests?.split(',').map((interest: string) => interest.trim());
+         let skills: string[] = [];
+         let interests: string[] = [];
+         if (data.skills && data.skills !== "") {
+            skills = data.skills.split(',').map((skill: string) => skill.trim());
+         }
+         if (data.interests && data.interests !== "") {
+            interests = data.interests.split(',').map((interest: string) => interest.trim());
+         }
 
          // Create a new user object with skills and interests as arrays
          const userWithArrays = {

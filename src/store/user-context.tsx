@@ -29,8 +29,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
    const refetchUser = async () => {
       const userData = await fetchUser(decodeJwt(accessToken!).sub);
       console.log("Refetching User:", userData);
-      const skills = userData.skills?.split(',').map((skill: string) => skill.trim());
-      const interests = userData.interests?.split(',').map((interest: string) => interest.trim());
+      let skills: string[] = [];
+      let interests: string[] = [];
+      if (userData.skills && userData.skills !== "") {
+         skills = userData.skills.split(',').map((skill: string) => skill.trim());
+      }
+      if (userData.interests && userData.interests !== "") {
+         interests = userData.interests.split(',').map((interest: string) => interest.trim());
+      }
       const userWithArrays = {
          ...userData,
          skills: skills,

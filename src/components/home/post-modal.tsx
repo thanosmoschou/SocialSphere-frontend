@@ -38,7 +38,7 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
         await createPost({
             title: postTitle,
             description: postContent,
-            imageUrl: "",
+            streamImageUrl: selectedImage ? URL.createObjectURL(selectedImage) : null,
             creatorId: user.userId || null,
         });
         // Update the user context

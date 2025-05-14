@@ -1,18 +1,9 @@
 import { backendUrl } from "../lib/constants";
 import { apiFetch } from "./auth";
-import { useUserContext } from "../store/user-context";
-import { CommentDTO } from "../types/types";
+import { CommentDTO, PostDTO } from "../types/types";
 
-export type Post = {
-   title: string;
-   description: string | null;
-   imageUrl: string | null;
-   creatorId: number | null;
-};
-
-export const createPost = async (post: Post) => {
-   console.log(post);
-   await apiFetch(`${backendUrl}/post/create`, {
+export const createPost = async (post: PostDTO) => {
+   await apiFetch(`${backendUrl}/post/create-text-only`, {
       method: "POST",
       body: JSON.stringify(post),
    });

@@ -23,13 +23,20 @@ export type UserLink = {
 export type Post = {
    title: string;
    description: string | null;
-   imageUrl: string | null;
+   streamImageUrl: string | null;
    creatorId: number | null;
    date: string;
    postId: number;
    usersLiked: number[];
    hashtags: string[];
    comments: Comment[];
+};
+
+export type PostDTO = {
+   title: string;
+   description: string | null;
+   streamImageUrl: string | null;
+   creatorId: number | null;
 };
 
 export type Comment = {

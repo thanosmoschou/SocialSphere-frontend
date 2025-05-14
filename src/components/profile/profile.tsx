@@ -18,6 +18,8 @@ export const Profile = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const { user: userContext } = useUserContext();
 
+    console.log("User Context in Profile: ", userContext);
+
     useEffect(() => {
         setIsOwnProfile(context.currentPage === "myprofile");
     }, [context.currentPage]);

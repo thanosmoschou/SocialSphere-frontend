@@ -57,16 +57,11 @@ export const Post = ({ post }: { post: PostType }) => {
          </section>
          <section className="flex flex-col gap-y-5">
             {/* Generate a random number of paragraphs */}
-            <p>{post.title}</p>
+            <p>{post.content}</p>
             <section className="flex gap-x-5">
                <img
                   src={PostImage1}
                   alt="Post Image 1"
-                  className="w-40 h-40 rounded-2xl"
-               />
-               <img
-                  src={PostImage2}
-                  alt="Post Image 2"
                   className="w-40 h-40 rounded-2xl"
                />
             </section>

@@ -1,5 +1,5 @@
 // src/api/auth.ts
-import { apiUrl } from "../lib/constants";
+import { apiUrl, backendUrl } from "../lib/constants";
 import { useNavigate } from "react-router-dom";
 
 export const loginUser = async (credentials: {
@@ -75,12 +75,15 @@ export const logout = () => {
 
 export const apiFetch = async (url: string, options: RequestInit = {}, retry = true): Promise<any> => {
   const accessToken = localStorage.getItem("accessToken");
+  console.log(url === `${backendUrl}/post/create-include-photo`); 
 
   const res = await fetch(url, {
     ...options,
     headers: {
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-      "Content-Type": "application/json",
+      ...(url === `${backendUrl}/post/create-include-photo` ? 
+        '' : 
+        { "Content-Type": "application/json" }),
       ...(options.headers || {}),
     },
   });

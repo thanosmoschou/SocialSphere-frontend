@@ -21,9 +21,8 @@ export type UserLink = {
 }
 
 export type Post = {
-   title: string;
-   description: string | null;
-   streamImageUrl: string | null;
+   content: string;
+   photo: File | null;
    creatorId: number | null;
    date: string;
    postId: number;
@@ -33,9 +32,8 @@ export type Post = {
 };
 
 export type PostDTO = {
-   title: string;
-   description: string | null;
-   streamImageUrl: string | null;
+   content: string;
+   photo: File | null;
    creatorId: number | null;
 };
 

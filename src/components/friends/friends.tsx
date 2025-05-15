@@ -59,13 +59,13 @@ export const Friends = () => {
                         </div>
                         <div className="mt-4 flex gap-2">
                             <Link 
-                                to={`/messages/${friend.displayName}`} 
+                                to={`/messages/${friend.userId}`} 
                                 className="flex-1 flex justify-center horizontal-gradient-primary text-white py-2 px-4 rounded-lg hover:opacity-80 hover:cursor-pointer transition-all duration-300"
                             >
                                 Message
                             </Link>
                             <Link 
-                                to={`/profile/${friend.displayName}`}
+                                to={`/profile/${friend.userId}`}
                                 className="flex-1 flex justify-center border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 hover:cursor-pointer transition-colors"
                                 onClick={() => context.setCurrentPage("friends")}
                             >

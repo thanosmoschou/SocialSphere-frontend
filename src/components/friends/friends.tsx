@@ -9,7 +9,6 @@ export const Friends = () => {
     const context = useNavContext();
     const { user } = useUserContext();
     const { data, isLoading, error } = useFriends();
-    console.log("Friends:", data);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -18,8 +17,14 @@ export const Friends = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-
-    const filteredFriends = data?.filter((friend: User) => friend.profileName !== user?.profileName);
+    console.log("data", data);
+    const filteredFriends = data?.filter((friend: User ) => friend.userId !== user?.userId);
+    for (const friend of filteredFriends) {
+      if (friend === user?.userId) {
+        filteredFriends.splice(filteredFriends.indexOf(friend), 1);
+      }
+    }
+    console.log("Filtered friends:", filteredFriends);
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg p-6">
             <header className="mb-6">

@@ -22,7 +22,6 @@ export const updatePrimaryInfo = (user: User) => {
     email: user.email,
     userLinks: user.userLinks,
   }
-  console.log("Updating primary info:", updatedUser);
   return apiFetch(`${backendUrl}/user/update-primary`, {
     method: "PUT",
     body: JSON.stringify(updatedUser),

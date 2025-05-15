@@ -15,8 +15,8 @@ export const ProfileEditForm = ({ onClose }: ProfileEditFormProps) => {
     const [location, setLocation] = useState(user?.location || "");
     const [skills, setSkills] = useState<string[]>(user?.skills || []);
     const [interests, setInterests] = useState<string[]>(user?.interests || []);
-    const [github, setGithub] = useState(user?.userLinks[1]?.url || "");
-    const [linkedin, setLinkedin] = useState(user?.userLinks[0]?.url || "");
+    const [github, setGithub] = useState(user?.userLinks[0]?.url || "");
+    const [linkedin, setLinkedin] = useState(user?.userLinks[1]?.url || "");
     const [newSkill, setNewSkill] = useState("");
     const [newInterest, setNewInterest] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +50,6 @@ export const ProfileEditForm = ({ onClose }: ProfileEditFormProps) => {
 
         try {
             if (!user?.userId) throw new Error("User ID is required");
-            
             const updatedUser = {
                 ...user,
                 profileName,

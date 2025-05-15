@@ -71,16 +71,16 @@ export const About = () => {
                     {(user?.userLinks[1]! && user?.userLinks[1].url !== null) && (
                         <div className="flex items-center">
                             <span className="w-24 text-gray-500">GitHub</span>
-                            <a href={user.userLinks[1].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                                {user.userLinks[1].url.replace(/^https?:\/\/(www\.)?/, '')}
+                            <a href={user.userLinks[0].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                                {user.userLinks[0].url.replace(/^https?:\/\/(www\.)?/, '')}
                             </a>
                         </div>
                     )}
-                    {(user?.userLinks[0]! && user?.userLinks[0].url !== null) && (
+                    {(user?.userLinks[1]! && user?.userLinks[1].url !== null) && (
                         <div className="flex items-center">
                             <span className="w-24 text-gray-500">LinkedIn</span>
-                            <a href={user.userLinks[0].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                                {user.userLinks[0].url.replace(/^https?:\/\/(www\.)?/, '')}
+                            <a href={user.userLinks[1].url} className="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
+                                {user.userLinks[1].url.replace(/^https?:\/\/(www\.)?/, '')}
                             </a>
                         </div>
                     )}

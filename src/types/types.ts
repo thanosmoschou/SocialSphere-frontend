@@ -21,6 +21,7 @@ export type UserLink = {
 }
 
 export type Post = {
+   imageUrl: string | null;
    content: string;
    photo: File | null;
    creatorId: number | null;

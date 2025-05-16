@@ -178,7 +178,7 @@ export const User = () => {
                     )}
                     {activeTab === "about" && <About user={user} />}
                     {activeTab === "friends" && <FriendsSection user={user} />}
-                    {activeTab === "photos" && <Photos user={user} />}
+                    {activeTab === "photos" && <Photos posts={user?.posts || []} />}
                 </div>
             </div>
 

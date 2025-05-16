@@ -112,7 +112,7 @@ export const Profile = () => {
                     )}
                     {activeTab === "about" && <About />}
                     {activeTab === "friends" && <FriendsSection />}
-                    {activeTab === "photos" && <Photos />}
+                    {activeTab === "photos" && <Photos posts={userContext?.posts || []} />}
                 </div>
             </div>
 

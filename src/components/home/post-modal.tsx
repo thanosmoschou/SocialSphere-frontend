@@ -4,6 +4,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import CloseIcon from "@mui/icons-material/Close";
 import { useUserContext } from "../../store/user-context";
 import { createPost } from "../../api/post";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface PostModalProps {
     open: boolean;
@@ -15,6 +16,7 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const { user, refetchUser } = useUserContext();
+    const queryClient = useQueryClient();
     
     const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -29,7 +31,6 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
     };
 
     const handlePost = async () => {
-        // TODO: Implement post functionality with title, content, and image
         if (!user?.userId) {
             console.error("User ID is not available");
             return;
@@ -39,6 +40,8 @@ export const PostModal = ({ open, onClose }: PostModalProps) => {
             photo: selectedImage,
             creatorId: user.userId || null,
         });
+        // Invalidate posts query to trigger a refetch
+        await queryClient.invalidateQueries({ queryKey: ['posts'] });
         // Update the user context
         await refetchUser();
         // Clear all fields

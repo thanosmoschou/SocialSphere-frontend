@@ -1,6 +1,4 @@
 import ProfilePicture from "../../assets/profile-gradient-border.png";
-import PostImage1 from "../../assets/post-image-1.png";
-import PostImage2 from "../../assets/post-image-2.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Post as PostType } from "../../types/types";
@@ -10,8 +8,6 @@ import { useEffect, useState } from "react";
 import { useLike } from "../../features/use-like";
 import { CommentModal } from "../home/comment-modal";
 import { useUsersById } from "../../hooks/use-users-by-id";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPostImages } from "../../api/post";
 import { backendUrl } from "../../lib/constants";
 
 export const Post = ({ post }: { post: PostType }) => {
@@ -20,12 +16,6 @@ export const Post = ({ post }: { post: PostType }) => {
    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
    const { like } = useLike(post.postId, user!.userId);
    const postTimeAgo = usePostTime(post.date);
-   // const { data: postImages } = useQuery({
-   //    queryKey: ['postImages', post.postId],
-   //    queryFn: () => fetchPostImages(post.postId),
-   // });
-
-   // Get all comment users' data
    const commentUserIds = post.comments.map((comment) => comment.userCommented);
    const { data: commentUsers } = useUsersById(commentUserIds);
 
@@ -33,9 +23,10 @@ export const Post = ({ post }: { post: PostType }) => {
       if (post.usersLiked.includes(user!.userId)) {
          setIsLiked(true);
       }
-   }, [post.usersLiked, user]);
+   }, [post.usersLiked]);
 
    const handleLike = async () => {
+      console.log("like");
       setIsLiked(!isLiked);
       like();
    };
@@ -66,15 +57,17 @@ export const Post = ({ post }: { post: PostType }) => {
             {/* Generate a random number of paragraphs */}
             <p>{post.content}</p>
             <section className="flex gap-x-5">
-               <img
-                  src={`${backendUrl}/post/fetch-photo/${post.postId}`}
-                  alt="Post image"
+               {post.imageUrl && (
+                  <img
+                     src={`${backendUrl}/post/fetch-photo/${post.postId}`}
+                     alt="Post image"
                   style={{
                      width: "30%",
                      objectFit: "cover",
                      borderRadius: "8px",
-                  }}
-               />
+                     }}
+                  />
+               )}
             </section>
             <section className="flex items-center">
                <section

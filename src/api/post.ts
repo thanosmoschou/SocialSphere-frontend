@@ -8,18 +8,23 @@ export const createPost = async (post: PostDTO) => {
       formData.append('content', post.content);
       formData.append('photo', post.photo);
       formData.append('creatorId', post.creatorId?.toString() || '');
-      await apiFetch(`${backendUrl}/post/create-include-photo`, {
+      return await apiFetch(`${backendUrl}/post/create-include-photo`, {
          method: "POST",
          body: formData,
       });
    } else {
-      await apiFetch(`${backendUrl}/post/create-text-only`, {
+      return await apiFetch(`${backendUrl}/post/create-text-only`, {
          method: "POST",
          body: JSON.stringify(post),
       });
    }
 };
 
+export const fetchAllPosts = async () => {
+   console.log("fetching posts");
+   const response = await apiFetch(`${backendUrl}/post/all`);
+   return response;
+};
 export const likePost = async(postId: number, userId: number) => {
    await apiFetch(`${backendUrl}/post/${postId}/like?userId=${userId}`, {
       method: "POST",

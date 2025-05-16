@@ -49,7 +49,7 @@ export const User = () => {
             refetchUser();
             queryClient.invalidateQueries({ queryKey: ['profile', numericUserId] });
         }
-    }, [followMutation.isSuccess, unfollowMutation.isSuccess, refetchUser, queryClient, numericUserId]);
+    }, [followMutation.isSuccess, unfollowMutation.isSuccess]);
 
     const handleFollowClick = () => {
         if (!userId) return;

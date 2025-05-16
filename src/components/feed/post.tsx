@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import { useLike } from "../../features/use-like";
 import { CommentModal } from "../home/comment-modal";
 import { useUsersById } from "../../hooks/use-users-by-id";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPostImages } from "../../api/post";
+import { backendUrl } from "../../lib/constants";
 
 export const Post = ({ post }: { post: PostType }) => {
    const { user } = useUserContext();
@@ -17,6 +20,10 @@ export const Post = ({ post }: { post: PostType }) => {
    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
    const { like } = useLike(post.postId, user!.userId);
    const postTimeAgo = usePostTime(post.date);
+   // const { data: postImages } = useQuery({
+   //    queryKey: ['postImages', post.postId],
+   //    queryFn: () => fetchPostImages(post.postId),
+   // });
 
    // Get all comment users' data
    const commentUserIds = post.comments.map((comment) => comment.userCommented);
@@ -60,9 +67,13 @@ export const Post = ({ post }: { post: PostType }) => {
             <p>{post.content}</p>
             <section className="flex gap-x-5">
                <img
-                  src={PostImage1}
-                  alt="Post Image 1"
-                  className="w-40 h-40 rounded-2xl"
+                  src={`${backendUrl}/post/fetch-photo/${post.postId}`}
+                  alt="Post image"
+                  style={{
+                     width: "30%",
+                     objectFit: "cover",
+                     borderRadius: "8px",
+                  }}
                />
             </section>
             <section className="flex items-center">
@@ -96,10 +107,12 @@ export const Post = ({ post }: { post: PostType }) => {
                            <section className="flex justify-between items-start gap-x-2 ">
                               <section className="flex flex-col">
                                  <h2 className="text-lg text-gray-800 font-medium">
-                                    {commentUsers?.[index]?.profileName || "Loading..."}
+                                    {commentUsers?.[index]?.profileName ||
+                                       "Loading..."}
                                  </h2>
                                  <p className="text-xs text-gray-500">
-                                    {commentUsers?.[index]?.displayName || "Loading..."}
+                                    {commentUsers?.[index]?.displayName ||
+                                       "Loading..."}
                                  </p>
                               </section>
                               <span className="text-xs text-gray-500">

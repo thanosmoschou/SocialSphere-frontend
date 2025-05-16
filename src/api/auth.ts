@@ -75,7 +75,6 @@ export const logout = () => {
 
 export const apiFetch = async (url: string, options: RequestInit = {}, retry = true): Promise<any> => {
   const accessToken = localStorage.getItem("accessToken");
-  console.log(url === `${backendUrl}/post/create-include-photo`); 
 
   const res = await fetch(url, {
     ...options,

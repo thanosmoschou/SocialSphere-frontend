@@ -1,6 +1,7 @@
 import { Post } from '../../types/types';
 import { backendUrl } from '../../lib/constants';
 import { usePostTime } from '../../hooks/use-post-time';
+import { useUserContext } from '../../store/user-context';
 
 interface PhotosProps {
    posts: Post[];
@@ -9,6 +10,7 @@ interface PhotosProps {
 export const Photos = ({ posts }: PhotosProps) => {
    // Filter posts that have images
    const postsWithImages = posts.filter(post => post.photo);
+   const { user } = useUserContext();
 
    return (
       <div className="space-y-6">
@@ -16,7 +18,7 @@ export const Photos = ({ posts }: PhotosProps) => {
             {postsWithImages.map((post) => (
                <div key={post.postId} className="group relative aspect-square rounded-lg overflow-hidden">
                   <img
-                     src={`${backendUrl}/post/fetch-photo/${post.postId}`}
+                     src={`${backendUrl}/post/fetch-photo/${user?.userId}/${post.postId}`}
                      alt="Post photo"
                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />

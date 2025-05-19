@@ -13,8 +13,6 @@ export const SearchBar = () => {
     const navigate = useNavigate();
     const { user: currentUser } = useUserContext();
 
-    console.log("Search Results:", data);
-
     // Debounce search term
     useEffect(() => {
         const timer = setTimeout(() => {

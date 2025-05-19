@@ -17,7 +17,6 @@ export const useProfile = () => {
    useEffect(() => {
       if (isSuccess && data) {
          // Split skills and interests into arrays
-         console.log("Data:", data);
          let skills: string[] = [];
          let interests: string[] = [];
          if (data.skills && data.skills !== "") {
@@ -33,8 +32,6 @@ export const useProfile = () => {
             skills: skills,
             interests: interests
          };
-
-         console.log("Setting User:", userWithArrays);
          setUser(userWithArrays);
       }
    }, [isSuccess, data]);

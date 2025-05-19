@@ -42,11 +42,4 @@ export const createComment = async (comment: CommentDTO) => {
    });
 };
 
-export const fetchPostImages = async (postId: number) => {
-   const response = await apiFetch(`${backendUrl}/post/fetch-photo/${postId}`, {
-      method: "GET",
-   });
-   return response.json();
-};
-
 

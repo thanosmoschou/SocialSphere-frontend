@@ -59,7 +59,7 @@ export const Post = ({ post }: { post: PostType }) => {
             <section className="flex gap-x-5">
                {post.imageUrl && (
                   <img
-                     src={`${backendUrl}/post/fetch-photo/${post.postId}`}
+                     src={`${backendUrl}/post/fetch-photo/${user?.userId}/${post.postId}`}
                      alt="Post image"
                   style={{
                      width: "30%",

@@ -14,6 +14,5 @@ export const useUser = (userId: number) => {
         user: profileData,
         isLoading,
         error,
-        
     };
 }; 

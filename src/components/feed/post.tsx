@@ -9,6 +9,7 @@ import { useLike } from "../../features/use-like";
 import { CommentModal } from "../home/comment-modal";
 import { useUsersById } from "../../hooks/use-users-by-id";
 import { backendUrl } from "../../lib/constants";
+import { useUserById } from "../../hooks/use-user-by-id";
 
 export const Post = ({ post }: { post: PostType }) => {
    const { user } = useUserContext();
@@ -18,6 +19,10 @@ export const Post = ({ post }: { post: PostType }) => {
    const postTimeAgo = usePostTime(post.date);
    const commentUserIds = post.comments.map((comment) => comment.userCommented);
    const { data: commentUsers } = useUsersById(commentUserIds);
+   const postCreator = typeof post.creator === "number" ? post.creator : post.creator.userId;
+   const { data: postUser } = useUserById(postCreator);
+   console.log("post", post);
+   console.log("postUser", postUser);
 
    useEffect(() => {
       if (post.usersLiked.includes(user!.userId)) {
@@ -44,10 +49,10 @@ export const Post = ({ post }: { post: PostType }) => {
                />
                <section>
                   <h1 className="text-black text-xl font-medium">
-                     {user?.profileName}
+                     {postUser?.profileName}
                   </h1>
                   <h3 className="text-gray-500 text-sm font-medium">
-                     {user?.displayName}
+                     {postUser?.displayName}
                   </h3>
                </section>
             </section>

@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { Post as PostType } from "../../types/types";
-import { fetchAllPosts } from "../../api/post";
+import { fetchFeed } from "../../api/post";
+import { useUserContext } from "../../store/user-context";
 import { Post } from "../feed/post";
 import { useEffect } from "react";
 export const Feed = () => {
+   const { user } = useUserContext();
    const { data: posts, isLoading, error } = useQuery({
       queryKey: ["posts"],
-      queryFn: () => fetchAllPosts(),
+      queryFn: () => fetchFeed(user!.userId),
    });
 
    useEffect(() => {
-      console.log(posts);
+      console.log("Posts", posts);
    }, [posts]);
 
    if (isLoading) {

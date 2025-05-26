@@ -1,6 +1,7 @@
 import { backendUrl } from "../lib/constants";
 import { apiFetch } from "./auth";
 import { CommentDTO, PostDTO } from "../types/types";
+import { useUserContext } from "../store/user-context";
 
 export const createPost = async (post: PostDTO) => {
    if (post.photo) {
@@ -20,11 +21,11 @@ export const createPost = async (post: PostDTO) => {
    }
 };
 
-export const fetchAllPosts = async () => {
-   console.log("fetching posts");
-   const response = await apiFetch(`${backendUrl}/post/all`);
+export const fetchFeed = async (userId: number) => {
+   const response = await apiFetch(`${backendUrl}/post/feed/${userId}`);
    return response;
 };
+
 export const likePost = async(postId: number, userId: number) => {
    await apiFetch(`${backendUrl}/post/${postId}/like?userId=${userId}`, {
       method: "POST",

@@ -73,7 +73,7 @@ export const logout = () => {
    navigate("/sign-in");
 };
 
-export const apiFetch = async (url: string, options: RequestInit = {}, retry = true): Promise<any> => {
+export const apiFetch = async (url: string, options: RequestInit = {}, retry = false): Promise<any> => {
   const accessToken = localStorage.getItem("accessToken");
 
   const res = await fetch(url, {

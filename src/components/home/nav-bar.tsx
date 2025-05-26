@@ -20,11 +20,11 @@ const navItems = [
       label: "Feed",
       path: "/",
    },
-   {
-      icon: <MessageIcon />,
-      label: "Messages",
-      path: "/messages",
-   },
+   // {
+   //    icon: <MessageIcon />,
+   //    label: "Messages",
+   //    path: "/messages",
+   // },
    {
       icon: <GroupIcon />,
       label: "Friends",
@@ -35,18 +35,13 @@ const navItems = [
       label: "My Profile",
       path: "/myprofile",
    },
-   {
-      icon: <SettingsIcon />,
-      label: "Settings",
-      path: "/settings",
-   },
 ];
 
 export const NavBar = () => {
    const context = useNavContext();
    const [active, setActive] = useState(context.currentPage);
    const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-   const { user } = useUserContext();
+   const { user, setUser } = useUserContext();
    const navigate = useNavigate();
    
    useEffect(() => {
@@ -103,6 +98,7 @@ export const NavBar = () => {
                onClick={() => {
                   localStorage.removeItem("accessToken");
                   localStorage.removeItem("refreshToken");
+                  setUser(null);
                   navigate("/sign-in");
                }}
                className="text-white flex items-center gap-x-5 w-full p-5 hover:cursor-pointer 

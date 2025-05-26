@@ -19,11 +19,6 @@ export const Friends = () => {
     }
     console.log("data", data);
     const filteredFriends = data?.filter((friend: User ) => friend.userId !== user?.userId);
-    for (const friend of filteredFriends) {
-      if (friend === user?.userId) {
-        filteredFriends.splice(filteredFriends.indexOf(friend), 1);
-      }
-    }
     console.log("Filtered friends:", filteredFriends);
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg p-6">

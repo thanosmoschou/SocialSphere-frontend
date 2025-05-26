@@ -6,14 +6,15 @@ import { Post } from "../feed/post";
 import { useEffect } from "react";
 export const Feed = () => {
    const { user } = useUserContext();
-   const { data: posts, isLoading, error } = useQuery({
+   console.log("user", user);
+   const { data: page, isLoading, error } = useQuery({
       queryKey: ["posts"],
       queryFn: () => fetchFeed(user!.userId),
    });
 
    useEffect(() => {
-      console.log("Posts", posts);
-   }, [posts]);
+      console.log("Page", page);
+   }, [page]);
 
    if (isLoading) {
       return (
@@ -43,8 +44,8 @@ export const Feed = () => {
             <h1 className="text-white text-2xl font-medium">My Feed</h1>
          </section>
          <section className="h-full flex flex-col gap-y-5 overflow-scroll">
-            {posts?.length > 0 ? (
-               posts.map((post: PostType) => (
+            {page.content?.length > 0 ? (
+               page.content.map((post: PostType) => (
                   <Post key={post.postId} post={post} />
                ))
             ) : (

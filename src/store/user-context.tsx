@@ -7,7 +7,7 @@ import { useAuth } from "../hooks/use-auth";
 
 type UserContextType = {
    user: User | null;
-   setUser: (user: User) => void;
+   setUser: (user: User | null) => void;
    refetchUser: () => Promise<void>;
 };
 
@@ -21,7 +21,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
    const [user, setUser] = useState<User | null>(null);
    const { accessToken } = useAuth();
 
-   const setUserState = (user: User) => {
+   const setUserState = (user: User | null) => {
       // console.log("User Context:",user);
       setUser(user);
    };

@@ -38,18 +38,18 @@ export const Friends = () => {
                         key={index}
                         className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow"
                     >
-                        <div className="flex items-start gap-4">
+                        <div className="flex flex-col items-center gap-4">
                             <div className="relative">
                                 <img 
                                     src={ProfilePicture} 
                                     alt={friend.profileName}
-                                    className="w-16 h-16 rounded-full"
+                                    className="w-16 aspect-square rounded-full"
                                 />
                                 <div className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
                                     'online' === 'online' ? 'bg-green-500' : 'bg-gray-300'
                                 }`} />
                             </div>
-                            <div className="flex-1">
+                            <div className="flex-1 flex flex-col items-center">
                                 <h2 className="font-semibold text-gray-800">{friend.profileName}</h2>
                                 <p className="text-sm text-gray-500">{friend.displayName}</p>
                                 <p className={`text-sm mt-1 ${
@@ -62,10 +62,12 @@ export const Friends = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="mt-4 flex gap-2">
+                        <div className="mt-4 flex gap-2 2xl:flex-row flex-col">
                             <Link 
                                 to={`/messages/${friend.userId}`} 
-                                className="flex-1 flex justify-center horizontal-gradient-primary text-white py-2 px-4 rounded-lg hover:opacity-80 hover:cursor-pointer transition-all duration-300"
+                                className="flex-1 flex justify-center horizontal-gradient-primary text-white py-2 px-4 rounded-lg hover:opacity-80 hover:cursor-pointer transition-all duration-300
+                                
+                                "
                             >
                                 Message
                             </Link>

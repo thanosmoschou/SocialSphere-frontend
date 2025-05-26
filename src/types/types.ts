@@ -24,7 +24,7 @@ export type Post = {
    imageUrl: string | null;
    content: string;
    photo: File | null;
-   creatorId: number | null;
+   creator: User | number;
    date: string;
    postId: number;
    usersLiked: number[];

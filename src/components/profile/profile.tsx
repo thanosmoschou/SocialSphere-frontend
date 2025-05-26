@@ -17,6 +17,7 @@ export const Profile = () => {
     const [activeTab, setActiveTab] = useState("posts");
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const { user: userContext } = useUserContext();
+    console.log(userContext);
 
     useEffect(() => {
         setIsOwnProfile(context.currentPage === "myprofile");

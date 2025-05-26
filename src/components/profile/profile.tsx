@@ -19,6 +19,8 @@ export const Profile = () => {
     const { user: userContext } = useUserContext();
     console.log(userContext);
 
+    console.log("userContext", userContext);
+
     useEffect(() => {
         setIsOwnProfile(context.currentPage === "myprofile");
     }, [context.currentPage]);

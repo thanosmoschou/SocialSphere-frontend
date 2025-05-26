@@ -46,7 +46,7 @@ export const User = () => {
     useEffect(() => {
         if (followMutation.isSuccess || unfollowMutation.isSuccess) {
             refetchUser();
-            queryClient.invalidateQueries({ queryKey: ['profile', numericUserId] });
+            // queryClient.invalidateQueries({ queryKey: ['profile', numericUserId] });
         }
     }, [followMutation.isSuccess, unfollowMutation.isSuccess]);
 

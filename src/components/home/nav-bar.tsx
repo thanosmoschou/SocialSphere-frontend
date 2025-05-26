@@ -11,6 +11,8 @@ import { useNavContext } from "../../store/nav-context";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../store/user-context";
 import { PostModal } from "./post-modal";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
    {
@@ -45,7 +47,8 @@ export const NavBar = () => {
    const [active, setActive] = useState(context.currentPage);
    const [isPostModalOpen, setIsPostModalOpen] = useState(false);
    const { user } = useUserContext();
-
+   const navigate = useNavigate();
+   
    useEffect(() => {
       setActive(context.currentPage);
    }, [context]);
@@ -96,8 +99,17 @@ export const NavBar = () => {
             <div className="w-[80%] blur-xl 2xl:blur-2xl aspect-square rounded-full horizontal-gradient-primary" />
          </section>
          <section className="flex flex-col gap-y-5 w-full">
-            <section className="flex items-center gap-x-5">
-               <p className="text-white text-2xl font-medium">@SocialSphere</p>
+            <section 
+               onClick={() => {
+                  localStorage.removeItem("accessToken");
+                  localStorage.removeItem("refreshToken");
+                  navigate("/sign-in");
+               }}
+               className="text-white flex items-center gap-x-5 w-full p-5 hover:cursor-pointer 
+               hover:bg-red-500/20 hover:text-red-400 transition-all duration-300 rounded-2xl"
+            >
+               <LogoutIcon />
+               <p>Logout</p>
             </section>
          </section>
          <PostModal open={isPostModalOpen} onClose={() => setIsPostModalOpen(false)} />

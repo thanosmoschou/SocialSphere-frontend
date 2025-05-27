@@ -3,18 +3,13 @@ import { Post as PostType } from "../../types/types";
 import { fetchFeed } from "../../api/post";
 import { useUserContext } from "../../store/user-context";
 import { Post } from "../feed/post";
-import { useEffect } from "react";
+
 export const Feed = () => {
    const { user } = useUserContext();
-   console.log("user", user);
    const { data: page, isLoading, error } = useQuery({
       queryKey: ["posts"],
       queryFn: () => fetchFeed(user!.userId),
    });
-
-   useEffect(() => {
-      console.log("Page", page);
-   }, [page]);
 
    if (isLoading) {
       return (

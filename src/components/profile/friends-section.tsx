@@ -4,14 +4,15 @@ import { User } from "../../types/types";
 import { apiFetch } from "../../api/auth";
 import { backendUrl } from "../../lib/constants";
 import { useQuery } from "@tanstack/react-query";
-import { FriendCard } from "../user/friend-card";
+import { FriendCard } from "./friend-card";
 
 type TabOptions = "followers" | "following";
 
-export const FriendsSection = () => {
+
+
+export const FriendsSection = ({user}:{user: User}) => {
    const [activeTab, setActiveTab] = useState<TabOptions>("followers");
    const [searchQuery, setSearchQuery] = useState("");
-   const { user } = useUserContext();
 
    // Function to fetch follower user details
    const fetchUserDetails = async (userIds: any[]) => {

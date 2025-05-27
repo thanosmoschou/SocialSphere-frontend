@@ -18,17 +18,16 @@ export const Post = ({ post }: { post: PostType }) => {
    const { like } = useLike(post.postId, user!.userId);
    const postTimeAgo = usePostTime(post.date);
    const commentUserIds = post.comments.map((comment) => comment.userCommented);
+   console.log("commentUserIds", commentUserIds);
    const { data: commentUsers } = useUsersById(commentUserIds);
    const postCreator = typeof post.creator === "number" ? post.creator : post.creator.userId;
    const { data: postUser } = useUserById(postCreator);
-   console.log("post", post);
-   console.log("postUser", postUser);
 
    useEffect(() => {
       if (post.usersLiked.includes(user!.userId)) {
          setIsLiked(true);
       }
-   }, [post.usersLiked]);
+   }, [post.usersLiked,]);
 
    const handleLike = async () => {
       console.log("like");

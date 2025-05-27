@@ -1,7 +1,6 @@
 import { backendUrl } from "../lib/constants";
 import { apiFetch } from "./auth";
 import { CommentDTO, PostDTO } from "../types/types";
-import { useUserContext } from "../store/user-context";
 
 export const createPost = async (post: PostDTO) => {
    if (post.photo) {

@@ -17,9 +17,8 @@ export const Friends = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-    console.log("data", data);
     const filteredFriends = data?.filter((friend: User ) => friend.userId !== user?.userId);
-    console.log("Filtered friends:", filteredFriends);
+
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg p-6">
             <header className="mb-6">

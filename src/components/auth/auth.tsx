@@ -1,5 +1,4 @@
 import { Form } from "./form";
-import { Input } from "./form-input";
 
 export type AuthFormProps = {
     formType:string;

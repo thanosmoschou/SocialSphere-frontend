@@ -10,10 +10,13 @@ import { CommentModal } from "../home/comment-modal";
 import { useUsersById } from "../../hooks/use-users-by-id";
 import { backendUrl } from "../../lib/constants";
 import { useUserById } from "../../hooks/use-user-by-id";
+import { formatContent } from "../../lib/formatHashtags";
+
 
 export const Post = ({ post }: { post: PostType }) => {
+
    const { user } = useUserContext();
-   const [isLiked, setIsLiked] = useState(false);
+   const [isLiked, setIsLiked] = useState(post.usersLiked.includes(user!.userId));
    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
    const { like } = useLike(post.postId, user!.userId);
    const postTimeAgo = usePostTime(post.date);
@@ -21,8 +24,6 @@ export const Post = ({ post }: { post: PostType }) => {
    const { data: commentUsers } = useUsersById(commentUserIds);
    const postCreator = typeof post.creator === "number" ? post.creator : post.creator.userId;
    const { data: postUser } = useUserById(postCreator);
-   console.log("post", post);
-   console.log("postUser", postUser);
 
    useEffect(() => {
       if (post.usersLiked.includes(user!.userId)) {
@@ -31,7 +32,6 @@ export const Post = ({ post }: { post: PostType }) => {
    }, [post.usersLiked]);
 
    const handleLike = async () => {
-      console.log("like");
       setIsLiked(!isLiked);
       like();
    };
@@ -60,16 +60,16 @@ export const Post = ({ post }: { post: PostType }) => {
          </section>
          <section className="flex flex-col gap-y-5">
             {/* Generate a random number of paragraphs */}
-            <p>{post.content}</p>
+            <p>{formatContent(post.content)}</p>
             <section className="flex gap-x-5">
                {post.imageUrl && (
                   <img
                      src={`${backendUrl}/post/fetch-photo/${user?.userId}/${post.postId}`}
                      alt="Post image"
-                  style={{
-                     width: "30%",
-                     objectFit: "cover",
-                     borderRadius: "8px",
+                     style={{
+                        width: "30%",
+                        objectFit: "cover",
+                        borderRadius: "8px",
                      }}
                   />
                )}

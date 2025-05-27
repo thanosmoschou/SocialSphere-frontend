@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ProfilePicture from '../../assets/profile-picture.png';
 import { Post } from '../feed/post';
 import { About } from './about';
@@ -10,20 +10,24 @@ import { useUserContext } from '../../store/user-context';
 import { Dialog, DialogContent } from '@mui/material';
 import { ProfileEditForm } from './profile-edit-form';
 import { Post as PostType } from '../../types/types';
+import { useOtherUser } from '../../hooks/use-other-user';
 
 export const Profile = () => {
     const context = useNavContext();
-    const [isOwnProfile, setIsOwnProfile] = useState(context.currentPage === "myprofile");
+    const { user: currentUser } = useUserContext();
+    const { otherUser, isLoading, isFollowing, handleFollowClick, followMutation, unfollowMutation } = useOtherUser();
     const [activeTab, setActiveTab] = useState("posts");
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const { user: userContext } = useUserContext();
-    console.log(userContext);
 
-    console.log("userContext", userContext);
+    // Determine if this is the logged-in user's profile
+    const isOwnProfile = context.currentPage === "myprofile";
+    const displayUser = isOwnProfile ? currentUser : otherUser;
 
-    useEffect(() => {
-        setIsOwnProfile(context.currentPage === "myprofile");
-    }, [context.currentPage]);
+    if (isLoading || !displayUser) {
+        return <div className="flex justify-center items-center h-full">
+            <div className="text-white">Loading profile...</div>
+        </div>;
+    }
 
     return (
         <div className="flex flex-col h-full bg-black rounded-lg">
@@ -32,7 +36,7 @@ export const Profile = () => {
                 <div className="absolute -bottom-16 left-8">
                     <img 
                         src={ProfilePicture} 
-                        alt={userContext?.profileName}
+                        alt={displayUser.profileName}
                         className="w-32 h-32 rounded-full border-4 border-black"
                     />
                 </div>
@@ -42,32 +46,46 @@ export const Profile = () => {
             <div className="pt-20 px-8 pb-6">
                 <div className="flex justify-between items-start">
                     <div>
-                        <h1 className="text-2xl font-bold text-white">{userContext?.profileName}</h1>
-                        <p className="text-gray-400">@{userContext?.displayName}</p>
-                        {userContext?.bio && <p className="mt-2 text-gray-300">{userContext.bio}</p>}
-                        {userContext?.location && (
+                        <h1 className="text-2xl font-bold text-white">{displayUser.profileName}</h1>
+                        <p className="text-gray-400">@{displayUser.displayName}</p>
+                        {displayUser.bio && <p className="mt-2 text-gray-300">{displayUser.bio}</p>}
+                        {displayUser.location && (
                             <div className="flex items-center gap-4 mt-2 text-gray-400">
-                                <span>{userContext.location}</span>
+                                <span>{displayUser.location}</span>
                                 <span>•</span>
-                                <span>Joined {new Date(userContext.createdAt || "").toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                                <span>Joined {new Date(displayUser.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
                             </div>
                         )}
                     </div>
-                    {isOwnProfile && (
+                    {isOwnProfile ? (
                         <button 
                             className="px-6 py-2 border border-gray-700 text-white rounded-full hover:bg-gray-800 transition-colors"
                             onClick={() => setIsEditModalOpen(true)}
                         >
                             Edit Profile
                         </button>
+                    ) : (
+                        <button 
+                            className={`px-6 py-2 rounded-full transition-colors ${
+                                isFollowing
+                                    ? 'bg-gray-800 text-white hover:bg-gray-700'
+                                    : 'bg-primary text-white hover:bg-primary/90'
+                            }`}
+                            onClick={handleFollowClick}
+                            disabled={followMutation.isPending || unfollowMutation.isPending}
+                        >
+                            {followMutation.isPending || unfollowMutation.isPending 
+                                ? 'Processing...' 
+                                : isFollowing ? 'Following' : 'Follow'}
+                        </button>
                     )}
                 </div>
 
                 {/* Stats */}
                 <Stats stats={{
-                    posts: userContext?.posts?.length || 0,
-                    followers: userContext?.followers?.length || 0,
-                    following: userContext?.following?.length || 0
+                    posts: displayUser.posts?.length || 0,
+                    followers: Array.isArray(displayUser.followers) ? displayUser.followers.length : 0,
+                    following: Array.isArray(displayUser.following) ? displayUser.following.length : 0
                 }} />
             </div>
 
@@ -106,31 +124,38 @@ export const Profile = () => {
                 <div className="space-y-6">
                     {activeTab === "posts" && (
                         <>
-                            {userContext?.posts?.map((post: PostType, index: number) => (
+                            {displayUser.posts?.map((post: PostType, index: number) => (
                                 <Post key={index} post={post} />
                             ))}
+                            {(!displayUser.posts || displayUser.posts.length === 0) && (
+                                <div className="text-center text-gray-400 p-8">
+                                    No posts yet
+                                </div>
+                            )}
                         </>
                     )}
-                    {activeTab === "about" && <About />}
-                    {activeTab === "friends" && <FriendsSection />}
-                    {activeTab === "photos" && <Photos posts={userContext?.posts || []} />}
+                    {activeTab === "about" && <About user={displayUser} />}
+                    {activeTab === "friends" && <FriendsSection user={displayUser} />}
+                    {activeTab === "photos" && <Photos posts={displayUser.posts || []} />}
                 </div>
             </div>
 
             {/* Edit Profile Modal */}
-            <Dialog 
-                open={isEditModalOpen} 
-                onClose={() => setIsEditModalOpen(false)}
-                maxWidth="sm"
-                fullWidth
-                PaperProps={{
-                    className: "bg-black border border-gray-800 rounded-2xl"
-                }}
-            >
-                <DialogContent className="bg-black p-6">
-                    <ProfileEditForm onClose={() => setIsEditModalOpen(false)} />
-                </DialogContent>
-            </Dialog>
+            {isOwnProfile && (
+                <Dialog 
+                    open={isEditModalOpen} 
+                    onClose={() => setIsEditModalOpen(false)}
+                    maxWidth="sm"
+                    fullWidth
+                    PaperProps={{
+                        className: "bg-black border border-gray-800 rounded-2xl"
+                    }}
+                >
+                    <DialogContent className="bg-black p-6">
+                        <ProfileEditForm onClose={() => setIsEditModalOpen(false)} />
+                    </DialogContent>
+                </Dialog>
+            )}
         </div>
     );
 };

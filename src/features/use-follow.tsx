@@ -3,8 +3,6 @@ import { followUser, unfollowUser } from "../api/user";
 import { User } from "../types/types";
 
 export const useFollow = (sender: User, receiver: User) => {
-    console.log("Sender:", sender);
-    console.log("Receiver:", receiver);
     
     const queryClient = useQueryClient();
     

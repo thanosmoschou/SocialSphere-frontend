@@ -19,7 +19,7 @@ export const FriendCard = ({ user }: UserFriendCardProps) => {
    const isCurrentUser = currentUser?.userId === user.userId;
    
    // Set the link destination based on whether it's the current user
-   const linkPath = isCurrentUser ? "/myprofile" : `/profile/${user.userId}`;
+   const linkPath = `/profile/${user.userId}`;
 
    return (
       <Link to={linkPath} className="bg-gray-800 text-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-700">

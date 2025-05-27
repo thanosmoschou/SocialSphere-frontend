@@ -17,7 +17,12 @@ export const Feed = () => {
             <section>
                <h1 className="text-white text-2xl font-medium">My Feed</h1>
             </section>
-            <div className="text-white text-center">Loading posts...</div>
+            <div className="flex-1 flex items-center justify-center">
+               <div className="flex flex-col items-center gap-4">
+                  <div className="w-15 aspect-square border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-gray-400 text-lg">Loading posts...</span>
+               </div>
+            </div>
          </section>
       );
    }
@@ -28,7 +33,12 @@ export const Feed = () => {
             <section>
                <h1 className="text-white text-2xl font-medium">My Feed</h1>
             </section>
-            <div className="text-red-500 text-center">Error loading posts</div>
+            <div className="flex-1 flex items-center justify-center">
+               <div className="flex flex-col items-center gap-2 text-red-400">
+                  <span className="text-2xl">⚠️</span>
+                  <span>Error loading posts</span>
+               </div>
+            </div>
          </section>
       );
    }
@@ -44,7 +54,12 @@ export const Feed = () => {
                   <Post key={post.postId} post={post} />
                ))
             ) : (
-               <div className="text-white text-center">No posts yet</div>
+               <div className="flex-1 flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-2 text-gray-400">
+                     <span className="text-2xl">📝</span>
+                     <span>No posts yet</span>
+                  </div>
+               </div>
             )}
          </section>
       </section>

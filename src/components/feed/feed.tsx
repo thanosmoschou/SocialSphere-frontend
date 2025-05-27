@@ -35,8 +35,7 @@ export const Feed = () => {
             </section>
             <div className="flex-1 flex items-center justify-center">
                <div className="flex flex-col items-center gap-2 text-red-400">
-                  <span className="text-2xl">⚠️</span>
-                  <span>Error loading posts</span>
+                  <span className="text-lg">Error loading posts</span>
                </div>
             </div>
          </section>
@@ -56,8 +55,7 @@ export const Feed = () => {
             ) : (
                <div className="flex-1 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-2 text-gray-400">
-                     <span className="text-2xl">📝</span>
-                     <span>No posts yet</span>
+                     <span className="text-lg">No posts yet</span>
                   </div>
                </div>
             )}

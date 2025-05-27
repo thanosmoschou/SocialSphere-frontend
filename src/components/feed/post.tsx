@@ -14,7 +14,7 @@ import { formatContent } from "../../lib/formatHashtags";
 
 
 export const Post = ({ post }: { post: PostType }) => {
-   console.log("post", post);
+
    const { user } = useUserContext();
    const [isLiked, setIsLiked] = useState(post.usersLiked.includes(user!.userId));
    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);

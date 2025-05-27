@@ -1,4 +1,4 @@
-import ProfilePicture from "../../assets/profile-gradient-border.png";
+import ProfilePicture from "../../assets/profile-picture.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Post as PostType } from "../../types/types";
@@ -45,7 +45,7 @@ export const Post = ({ post }: { post: PostType }) => {
                <img
                   src={ProfilePicture}
                   alt="Profile Picture"
-                  className="w-12 h-12 rounded-full"
+                  className="w-15 aspect-square rounded-full"
                />
                <section>
                   <h1 className="text-black text-xl font-medium">

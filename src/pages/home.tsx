@@ -3,7 +3,6 @@ import { MainContent } from "../components/home/main-content";
 import { NavBar } from "../components/home/nav-bar";
 import { useProfile } from "../hooks/use-profile";
 import { useAuth } from "../hooks/use-auth";
-import { decodeJwt } from "../lib/decodeJWT";
 import { Navigate } from "react-router-dom";
 
 export const Home = () => {

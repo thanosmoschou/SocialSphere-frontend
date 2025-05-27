@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom';
 import { FriendsSection } from './friends-section';
 import { Photos } from './photos';
 import { Stats } from './stats';
-import { useQueryClient } from '@tanstack/react-query';
 import { useUserContext } from '../../store/user-context';
 import { useFollow } from '../../features/use-follow';
 
@@ -23,7 +22,6 @@ export const User = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const { user, isLoading, error } = useUser(Number(userId));
     const { user: currentUser, refetchUser } = useUserContext();
-    const queryClient = useQueryClient();
     const numericUserId = Number(userId);
     console.log("Current profile:", numericUserId);
 

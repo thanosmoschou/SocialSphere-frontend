@@ -2,6 +2,10 @@
     @apply bg-gradient-to-r from-[#D093FF] via-[#34719F] to-[#000000]
 }
 
+.horizontal-gradient-secondary {
+    @apply bg-gradient-to-r from-[#D093FF] to-[#34719F] 
+}
+
 .vertical-gradient-primary {
     @apply bg-gradient-to-b from-[#D093FF] via-[#34719F] to-[#000000]
 }

@@ -10,8 +10,11 @@ import { CommentModal } from "../home/comment-modal";
 import { useUsersById } from "../../hooks/use-users-by-id";
 import { backendUrl } from "../../lib/constants";
 import { useUserById } from "../../hooks/use-user-by-id";
+import { formatContent } from "../../lib/formatHashtags";
+
 
 export const Post = ({ post }: { post: PostType }) => {
+   console.log("post", post);
    const { user } = useUserContext();
    const [isLiked, setIsLiked] = useState(post.usersLiked.includes(user!.userId));
    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
@@ -57,16 +60,16 @@ export const Post = ({ post }: { post: PostType }) => {
          </section>
          <section className="flex flex-col gap-y-5">
             {/* Generate a random number of paragraphs */}
-            <p>{post.content}</p>
+            <p>{formatContent(post.content)}</p>
             <section className="flex gap-x-5">
                {post.imageUrl && (
                   <img
                      src={`${backendUrl}/post/fetch-photo/${user?.userId}/${post.postId}`}
                      alt="Post image"
-                  style={{
-                     width: "30%",
-                     objectFit: "cover",
-                     borderRadius: "8px",
+                     style={{
+                        width: "30%",
+                        objectFit: "cover",
+                        borderRadius: "8px",
                      }}
                   />
                )}

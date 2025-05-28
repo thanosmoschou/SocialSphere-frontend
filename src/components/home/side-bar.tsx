@@ -1,8 +1,4 @@
 import { SearchBar } from "./search-bar";
-import { Hashtags } from "./hashtags";
-import { Stats } from "./stats";
-import { RecommendedAccounts } from "./recommended-acounts";
-
 
 export const SideBar = () => {
    return (

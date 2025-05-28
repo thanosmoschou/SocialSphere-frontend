@@ -1,4 +1,4 @@
-import { ArrowBack, Search } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useNavContext } from "../../store/nav-context";
 export const NotFound = () => {

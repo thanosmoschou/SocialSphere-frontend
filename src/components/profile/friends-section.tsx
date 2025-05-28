@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useUserContext } from "../../store/user-context";
 import { User } from "../../types/types";
 import { apiFetch } from "../../api/auth";
 import { backendUrl } from "../../lib/constants";

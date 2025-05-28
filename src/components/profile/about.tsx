@@ -1,4 +1,3 @@
-import { useUserContext } from "../../store/user-context";
 import { User } from "../../types/types";
 
 type AboutProps = {

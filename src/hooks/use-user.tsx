@@ -1,10 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserById } from "../api/user";
-import { useParams } from "react-router-dom";
-import { useUserContext } from "../store/user-context";
 
 export const useUser = (userId: number) => {
-
     const { data: profileData, isLoading, error } = useQuery({
         queryKey: ["profile", userId],
         queryFn: () => fetchUserById(userId),

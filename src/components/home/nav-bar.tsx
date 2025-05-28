@@ -1,11 +1,8 @@
 import Logo from "../../assets/logo-gradient.png";
 import Profile from "../../assets/profile-picture.png";
-
 import FeedIcon from "@mui/icons-material/Feed";
-import MessageIcon from "@mui/icons-material/Message";
 import GroupIcon from "@mui/icons-material/Group";
 import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavContext } from "../../store/nav-context";
 import { useEffect, useState } from "react";

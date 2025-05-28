@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { decodeJwt } from "../lib/decodeJWT";
 import { User } from "../types/types";
 import { fetchUser } from "../api/user";

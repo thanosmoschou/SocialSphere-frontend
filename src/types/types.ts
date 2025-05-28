@@ -71,4 +71,11 @@ export type UserProfile = {
    isOwnProfile: boolean;
 }
 
+export type Message = {
+   sender: string;
+   receiver: string;
+   content: string;
+   timestamp: string;
+}
+
 

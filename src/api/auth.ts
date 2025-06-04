@@ -1,5 +1,5 @@
 // src/api/auth.ts
-import { apiUrl, backendUrl } from "../lib/constants";
+import { authUrl, backendUrl } from "../lib/constants";
 import { useNavigate } from "react-router-dom";
 
 export const loginUser = async (credentials: {
@@ -7,7 +7,7 @@ export const loginUser = async (credentials: {
    password: string;
 }) => {
    // Use apiFetch to login
-   const res = await fetch(`${apiUrl}/authenticate`, {
+   const res = await fetch(`${authUrl}/authenticate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
@@ -28,7 +28,7 @@ export const registerUser = async (userData: {
    email: string;
 }) => {
    console.log(userData);
-   const res = await fetch(`${apiUrl}/register`, {
+   const res = await fetch(`${authUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
@@ -48,7 +48,7 @@ export const tryRefreshToken = async (): Promise<string | null> => {
    if (!refreshToken) return null;
  
    try {
-     const res = await fetch("http://localhost:8080/api/auth/refresh", {
+     const res = await fetch(`${authUrl}/refresh`, {
        method: "POST",
        headers: { "Content-Type": "application/json" },
        body: JSON.stringify({ refreshToken }),

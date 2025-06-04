@@ -3,13 +3,39 @@ import { Post as PostType } from "../../types/types";
 import { fetchFeed } from "../../api/post";
 import { useUserContext } from "../../store/user-context";
 import { Post } from "../feed/post";
+import { useEffect } from "react";
+import { apiFetch } from "../../api/auth";
+import { backendUrl } from "../../lib/constants";
 
 export const Feed = () => {
    const { user } = useUserContext();
    const { data: page, isLoading, error } = useQuery({
       queryKey: ["posts"],
       queryFn: () => fetchFeed(user!.userId),
-   });
+   }); 
+   
+   useEffect(() => {
+      const markPostsAsSeen = async () => {
+         if (page?.content) {
+            const markAsSeenPromises = page.content.map((post: PostType) => 
+               apiFetch(`${backendUrl}/post/feed/${user!.userId}/${post.postId}/mark-as-seen`, {
+                  method: 'POST'
+               })
+            );
+            await Promise.all(markAsSeenPromises);
+         }
+      };
+
+      const handleBeforeUnload = () => {
+         markPostsAsSeen();
+      };
+
+      window.addEventListener('beforeunload', handleBeforeUnload);
+
+      return () => {
+         window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+   }, [page?.content, user]); // Add dependencies to get latest data
 
    if (isLoading) {
       return (

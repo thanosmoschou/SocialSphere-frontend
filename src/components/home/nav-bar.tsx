@@ -24,8 +24,8 @@ const navItems = [
    // },
    {
       icon: <GroupIcon />,
-      label: "Friends",
-      path: "/friends",
+      label: "Discover",
+      path: "/discover",
    },
    {
       icon: <PersonIcon />,

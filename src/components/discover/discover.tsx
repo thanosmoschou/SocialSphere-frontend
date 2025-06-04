@@ -5,7 +5,7 @@ import { useFriends } from '../../hooks/use-friends';
 import { useUserContext } from '../../store/user-context';
 import { User } from '../../types/types';
 
-export const Friends = () => {
+export const Discover = () => {
     const context = useNavContext();
     const { user } = useUserContext();
     const { data, isLoading, error } = useFriends();
@@ -18,16 +18,18 @@ export const Friends = () => {
         return <div>Error: {error.message}</div>;
     }
     const filteredFriends = data?.filter((friend: User ) => friend.userId !== user?.userId);
+    const following = user?.following.map((friend: number ) => friend);
+    const notFollowing = filteredFriends?.filter((friend: User ) => !following?.includes(friend.userId));
 
     return (
         <div className="flex flex-col h-full bg-white rounded-lg shadow-lg p-6">
             <header className="mb-6">
-                <h1 className="text-2xl font-semibold text-gray-800">Friends</h1>
-                <p className="text-gray-500 mt-1">Your social circle</p>
+                <h1 className="text-2xl font-semibold text-gray-800">Discover new people</h1>
+                <p className="text-gray-500 mt-1">Find new friends and connect with them</p>
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto">
-                {filteredFriends.map((friend: User, index: number) => (
+                {notFollowing?.map((friend: User, index: number) => (
                     <div 
                         key={index}
                         className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow"
@@ -68,7 +70,7 @@ export const Friends = () => {
                             <Link 
                                 to={`/profile/${friend.userId}`}
                                 className="flex-1 flex justify-center border border-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 hover:cursor-pointer transition-colors"
-                                onClick={() => context.setCurrentPage("friends")}
+                                onClick={() => context.setCurrentPage("discover")}
                             >
                                 Profile
                             </Link>

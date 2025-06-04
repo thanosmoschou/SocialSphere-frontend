@@ -27,7 +27,7 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
          if (user?.userId === Number(location.pathname.split("/")[2])) {
             setActive("myprofile");
          } else {
-            setActive("friends");
+            setActive("discover");
          }
       } else {
          setActive(location.pathname.split("/")[1]);

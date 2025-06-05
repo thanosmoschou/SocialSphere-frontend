@@ -1,13 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import dotenv from 'dotenv';
+import { APP_BASE_URL } from './src/lib/constants';
 
-dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-  const BASE_URL_FOR_VITE = process.env.VITE_APP_BASE_URL;
+  const BASE_URL_FOR_VITE = APP_BASE_URL;
 
   return {
     plugins: [react(), tailwindcss()],

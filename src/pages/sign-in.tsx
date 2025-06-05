@@ -7,7 +7,7 @@ const inputs = [
       label: "Username or Email",
       name: "username",
       type: "text",
-      placeholder: "d@gmail.com",
+      placeholder: "johndoe@gmail.com",
       required: true,
       minLength: 1,
    },

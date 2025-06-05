@@ -5,13 +5,7 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <script type="text/javascript">
-        // Αποθηκεύουμε την αρχική διαδρομή που ζητήθηκε (π.χ. /SocialSphere-frontend/sign-up)
-        // Αυτό είναι σημαντικό για να μπορεί το React Router να πλοηγηθεί στη σωστή σελίδα.
-        sessionStorage.setItem('redirectUrl', location.pathname + location.search);
-
-        // Δυναμικός προσδιορισμός του base path.
-        // Εάν η εφαρμογή είναι στο thanosmoschou.github.io/SocialSphere-frontend/,
-        // το basePath θα είναι /SocialSphere-frontend/.
+        // Δυναμικός προσδιορισμός του base path (π.χ. /SocialSphere-frontend/)
         const pathSegments = window.location.pathname.split('/');
         let basePath = '/';
         // Αν υπάρχει δεύτερο segment (όπως "SocialSphere-frontend"), χρησιμοποιήστε το ως basePath
@@ -19,14 +13,31 @@
             basePath = '/' + pathSegments[1] + '/';
         }
 
-        // Ανακατεύθυνση στο index.html της εφαρμογής.
-        // Το React Router θα αναλάβει την περαιτέρω πλοήγηση χρησιμοποιώντας το stored redirectUrl.
+        // Παίρνουμε την πλήρη διαδρομή που ζητήθηκε (π.χ. /SocialSphere-frontend/sign-up)
+        const fullRequestedPath = location.pathname;
+
+        // Αφαιρούμε το basePath από την πλήρη διαδρομή για να πάρουμε τη σχετική διαδρομή
+        // που περιμένει το React Router (π.χ. /sign-up)
+        let relativePath = fullRequestedPath;
+        if (fullRequestedPath.startsWith(basePath)) {
+            // Το substring(basePath.length - 1) διατηρεί την αρχική κάθετο (/)
+            // π.χ., αν basePath = "/SocialSphere-frontend/" (19 χαρακτήρες)
+            // και fullRequestedPath = "/SocialSphere-frontend/sign-up"
+            // τότε fullRequestedPath.substring(19 - 1) = fullRequestedPath.substring(18) = "/sign-up"
+            relativePath = fullRequestedPath.substring(basePath.length - 1);
+        }
+
+        // Αποθηκεύουμε μόνο τη σχετική διαδρομή (π.χ. /sign-up) στο sessionStorage
+        sessionStorage.setItem('redirectUrl', relativePath + location.search);
+
+        // Ανακατεύθυνση στο index.html της εφαρμογής, χρησιμοποιώντας το basePath.
+        // Το React Router θα αναλάβει την περαιτέρω πλοήγηση χρησιμοποιώντας το αποθηκευμένο relativePath.
         window.location.replace(basePath);
     </script>
 </head>
 
 <body>
-    <p>If you are seeing this, something went wrong, and you should be redirected shortly.</p>
+    <p>Αν βλέπετε αυτό, κάτι πήγε στραβά, και θα ανακατευθυνθείτε σύντομα.</p>
 </body>
 
 </html>

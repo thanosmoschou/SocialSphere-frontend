@@ -27,7 +27,11 @@ export const Form = (props: FormProps) => {
 
     const login = useLogin((data) => {
         console.log(data);
-        navigate("/"); 
+
+        const redirectPath = sessionStorage.getItem("redirectPath") || "/";
+        sessionStorage.removeItem("redirectPath");
+        navigate(redirectPath, { replace: true });
+
         console.log("login successful");
     }, (error) => {
         console.log(error);
@@ -36,7 +40,11 @@ export const Form = (props: FormProps) => {
 
     const register = useRegister((data) => {
         console.log(data);
-        navigate("/");
+
+        const redirectPath = sessionStorage.getItem("redirectPath") || "/";
+        sessionStorage.removeItem("redirectPath");
+        navigate(redirectPath, { replace: true });
+
         console.log("register successful");
     }, (error) => {
         console.log(error);
@@ -49,16 +57,16 @@ export const Form = (props: FormProps) => {
         setError(null); // Clear any previous errors
 
         if (props.info.formType === "sign-in") {
-            login.mutate({ 
-                username: formData.username, 
-                password: formData.password 
+            login.mutate({
+                username: formData.username,
+                password: formData.password
             });
         } else if (props.info.formType === "sign-up") {
-            register.mutate({ 
+            register.mutate({
                 displayName: formData.displayName,
-                profileName: formData.profileName, 
-                password: formData.password, 
-                email: formData.email 
+                profileName: formData.profileName,
+                password: formData.password,
+                email: formData.email
             });
         }
     }
@@ -71,9 +79,9 @@ export const Form = (props: FormProps) => {
                 </div>
             )}
             {props.inputs.map((input) => (
-                <Input 
-                    {...input} 
-                    key={input.name} 
+                <Input
+                    {...input}
+                    key={input.name}
                     onChange={handleChange}
                 />
             ))}

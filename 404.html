@@ -5,44 +5,26 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <script type="text/javascript">
-        // Ορίζουμε ρητά τη βασική διαδρομή της εφαρμογής σας.
         const APP_BASE_PATH = '/SocialSphere-frontend/';
 
-        // Παίρνουμε την πλήρη διαδρομή που ζητήθηκε από τον χρήστη στο πρόγραμμα περιήγησης.
-        // Παραδείγματα: "/sign-up" (αν ο χρήστης πληκτρολόγησε σκέτο "sign-up") 
-        // ή "/SocialSphere-frontend/sign-up" (αν πληκτρολόγησε την πλήρη διαδρομή)
         const requestedFullPath = window.location.pathname;
 
-        let pathForReactRouter = '/'; // Προεπιλογή στην αρχική διαδρομή της εφαρμογής
+        let pathForReactRouter = '/';
 
-        // Ελέγχουμε αν η ζητούμενη διαδρομή ξεκινά με τη βασική διαδρομή της εφαρμογής.
         if (requestedFullPath.startsWith(APP_BASE_PATH)) {
-            // Αν ξεκινά με τη βασική διαδρομή (π.χ., "/SocialSphere-frontend/sign-up"),
-            // τότε αφαιρούμε τη βασική διαδρομή για να πάρουμε τη σχετική διαδρομή
-            // που περιμένει ο React Router (π.χ., "/sign-up").
-            // Το substring(APP_BASE_PATH.length - 1) διατηρεί την αρχική κάθετο (/).
             pathForReactRouter = requestedFullPath.substring(APP_BASE_PATH.length - 1);
         } else {
-            // Αν η ζητούμενη διαδρομή ΔΕΝ ξεκινά με τη βασική διαδρομή της εφαρμογής
-            // (π.χ., ο χρήστης πληκτρολόγησε απευθείας "thanosmoschou.github.io/sign-up"),
-            // τότε η διαδρομή για τον React Router είναι απλά η ζητούμενη διαδρομή.
-            // Παράδειγμα: "/sign-up" -> "/sign-up".
-            // ΣΗΜΑΝΤΙΚΟ: Δεν προσθέτουμε εδώ το APP_BASE_PATH, καθώς ο BrowserRouter αναμένει τη σχετική διαδρομή.
             pathForReactRouter = requestedFullPath;
         }
 
-        // Αποθηκεύουμε αυτή την υπολογισμένη διαδρομή (που είναι συμβατή με τον React Router) στο sessionStorage.
-        // Συμπεριλαμβάνουμε και τυχόν παραμέτρους query (π.χ., ?redirect=/...).
         sessionStorage.setItem('redirectUrl', pathForReactRouter + window.location.search);
 
-        // Ανακατευθύνουμε το πρόγραμμα περιήγησης στο κύριο σημείο εισόδου της εφαρμογής React.
-        // Αυτή η διεύθυνση URL θα περιλαμβάνει τη βασική διαδρομή, επιτρέποντας στην εφαρμογή React να φορτωθεί.
         window.location.replace(APP_BASE_PATH);
     </script>
 </head>
 
 <body>
-    <p>Αν βλέπετε αυτό, κάτι πήγε στραβά, και θα ανακατευθυνθείτε σύντομα.</p>
+    <p>Redirecting...</p>
 </body>
 
 </html>

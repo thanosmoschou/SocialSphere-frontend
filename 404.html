@@ -5,41 +5,39 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <script type="text/javascript">
-        // Δυναμικός προσδιορισμός του base path (π.χ. /SocialSphere-frontend/)
-        const pathSegments = window.location.pathname.split('/');
-        // Αρχικοποιούμε το basePath με την επιθυμητή σταθερή τιμή.
-        let basePath = '/SocialSphere-frontend/';
-        // Αυτό το κομμάτι κώδικα μπορεί να παραμείνει αν θέλετε τη δυνατότητα δυναμικού εντοπισμού
-        // σε περίπτωση που το basePath δεν είναι πάντα "/SocialSphere-frontend/".
-        // Για σταθερό basePath "/SocialSphere-frontend/", αυτό το if statement δεν θα αλλάξει την τιμή.
-        if (pathSegments.length > 1 && pathSegments[1].length > 0) {
-            // Ελέγχουμε αν το πρώτο segment μετά τον hostname είναι το "SocialSphere-frontend"
-            // για να διασφαλίσουμε ότι το basePath παραμένει σωστό.
-            if (pathSegments[1] === "SocialSphere-frontend") {
-                basePath = '/' + pathSegments[1] + '/';
-            }
+        // Ορίζουμε ρητά τη βασική διαδρομή της εφαρμογής σας.
+        const APP_BASE_PATH = '/SocialSphere-frontend/';
+
+        // Παίρνουμε την πλήρη διαδρομή που ζητήθηκε από τον χρήστη στο πρόγραμμα περιήγησης.
+        // Παραδείγματα: "/sign-up" (αν ο χρήστης πληκτρολόγησε σκέτο "sign-up") 
+        // ή "/SocialSphere-frontend/sign-up" (αν πληκτρολόγησε την πλήρη διαδρομή)
+        const requestedFullPath = window.location.pathname;
+
+        let pathForReactRouter = '/'; // Προεπιλογή στην αρχική διαδρομή της εφαρμογής
+
+        // Ελέγχουμε αν η ζητούμενη διαδρομή ξεκινά με τη βασική διαδρομή της εφαρμογής.
+        if (requestedFullPath.startsWith(APP_BASE_PATH)) {
+            // Αν ξεκινά με τη βασική διαδρομή (π.χ., "/SocialSphere-frontend/sign-up"),
+            // τότε αφαιρούμε τη βασική διαδρομή για να πάρουμε τη σχετική διαδρομή
+            // που περιμένει ο React Router (π.χ., "/sign-up").
+            // Το substring(APP_BASE_PATH.length - 1) διατηρεί την αρχική κάθετο (/).
+            pathForReactRouter = requestedFullPath.substring(APP_BASE_PATH.length - 1);
+        } else {
+            // Αν η ζητούμενη διαδρομή ΔΕΝ ξεκινά με τη βασική διαδρομή της εφαρμογής
+            // (π.χ., ο χρήστης πληκτρολόγησε απευθείας "thanosmoschou.github.io/sign-up"),
+            // τότε η διαδρομή για τον React Router είναι απλά η ζητούμενη διαδρομή.
+            // Παράδειγμα: "/sign-up" -> "/sign-up".
+            // ΣΗΜΑΝΤΙΚΟ: Δεν προσθέτουμε εδώ το APP_BASE_PATH, καθώς ο BrowserRouter αναμένει τη σχετική διαδρομή.
+            pathForReactRouter = requestedFullPath;
         }
 
-        // Παίρνουμε την πλήρη διαδρομή που ζητήθηκε (π.χ. /SocialSphere-frontend/sign-up)
-        const fullRequestedPath = location.pathname;
+        // Αποθηκεύουμε αυτή την υπολογισμένη διαδρομή (που είναι συμβατή με τον React Router) στο sessionStorage.
+        // Συμπεριλαμβάνουμε και τυχόν παραμέτρους query (π.χ., ?redirect=/...).
+        sessionStorage.setItem('redirectUrl', pathForReactRouter + window.location.search);
 
-        // Αφαιρούμε το basePath από την πλήρη διαδρομή για να πάρουμε τη σχετική διαδρομή
-        // που περιμένει το React Router (π.χ. /sign-up)
-        let relativePath = fullRequestedPath;
-        if (fullRequestedPath.startsWith(basePath)) {
-            // Το substring(basePath.length - 1) διατηρεί την αρχική κάθετο (/)
-            // π.χ., αν basePath = "/SocialSphere-frontend/" (19 χαρακτήρες)
-            // και fullRequestedPath = "/SocialSphere-frontend/sign-up"
-            // τότε fullRequestedPath.substring(19 - 1) = fullRequestedPath.substring(18) = "/sign-up"
-            relativePath = fullRequestedPath.substring(basePath.length - 1);
-        }
-
-        // Αποθηκεύουμε μόνο τη σχετική διαδρομή (π.χ. /sign-up) στο sessionStorage
-        sessionStorage.setItem('redirectUrl', relativePath + location.search);
-
-        // Ανακατεύθυνση στο index.html της εφαρμογής, χρησιμοποιώντας το basePath.
-        // Το React Router θα αναλάβει την περαιτέρω πλοήγηση χρησιμοποιώντας το αποθηκευμένο relativePath.
-        window.location.replace(basePath);
+        // Ανακατευθύνουμε το πρόγραμμα περιήγησης στο κύριο σημείο εισόδου της εφαρμογής React.
+        // Αυτή η διεύθυνση URL θα περιλαμβάνει τη βασική διαδρομή, επιτρέποντας στην εφαρμογή React να φορτωθεί.
+        window.location.replace(APP_BASE_PATH);
     </script>
 </head>
 

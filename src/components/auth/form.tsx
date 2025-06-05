@@ -3,7 +3,7 @@ import { Input } from "./form-input";
 import { useState } from "react";
 import { useLogin } from "../../features/use-login";
 import { useRegister } from "../../features/use-register";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 type FormProps = {
     inputs: InputProps[];
@@ -27,7 +27,7 @@ export const Form = (props: FormProps) => {
 
     const login = useLogin((data) => {
         console.log(data);
-        navigate("/"); 
+        navigate("/");
         console.log("login successful");
     }, (error) => {
         console.log(error);
@@ -49,16 +49,16 @@ export const Form = (props: FormProps) => {
         setError(null); // Clear any previous errors
 
         if (props.info.formType === "sign-in") {
-            login.mutate({ 
-                username: formData.username, 
-                password: formData.password 
+            login.mutate({
+                username: formData.username,
+                password: formData.password
             });
         } else if (props.info.formType === "sign-up") {
-            register.mutate({ 
+            register.mutate({
                 displayName: formData.displayName,
-                profileName: formData.profileName, 
-                password: formData.password, 
-                email: formData.email 
+                profileName: formData.profileName,
+                password: formData.password,
+                email: formData.email
             });
         }
     }
@@ -71,9 +71,9 @@ export const Form = (props: FormProps) => {
                 </div>
             )}
             {props.inputs.map((input) => (
-                <Input 
-                    {...input} 
-                    key={input.name} 
+                <Input
+                    {...input}
+                    key={input.name}
                     onChange={handleChange}
                 />
             ))}
@@ -86,12 +86,12 @@ export const Form = (props: FormProps) => {
 
             <div className="text-center text-gray-400 text-sm">
                 {props.info.linkText}
-                <a
-                    href={props.info.href}
+                <Link
+                    to={props.info.href}
                     className="text-white font-medium hover:underline"
                 >
                     {props.info.link}
-                </a>
+                </Link>
             </div>
         </form>
     )

@@ -24,16 +24,16 @@ function App() {
                <Route path="/sign-up" element={<SignUp />} />
                <Route path="/sign-in" element={<SignIn />} />
                <Route path="/" element={<ProtectedRoute />}>
-                  <Route index element={<Home />} />
-                  <Route path="feed" element={<Feed />} />
-                  <Route path="messages" element={<MessageList />} />
-                  <Route path="messages/:id" element={<Message />} />
-                  <Route path="discover" element={<Discover />} />
-                  <Route path="profile/:userId" element={<Profile />} />
+                  <Route path="/" element={<Home />}>
+                     <Route path="/feed" element={<Feed />} />
+                     <Route path="/messages" element={<MessageList />} />
+                     <Route path="/messages/:id" element={<Message />} />
+                     <Route path="/discover" element={<Discover />} />
+                     <Route path="/profile/:userId" element={<Profile />} />
+                  </Route>
                </Route>
                <Route path="*" element={<NotFound />} />
             </Routes>
-
          </NavProvider>
       </UserProvider>
    );
@@ -48,10 +48,14 @@ function RedirectHandler() {
    useEffect(() => {
       const params = new URLSearchParams(window.location.search);
       const redirect = params.get("redirect");
-      if (redirect) {
+
+      if (redirect && window.location.pathname !== redirect) {
          navigate(redirect, { replace: true });
+         window.history.replaceState({}, '', window.location.pathname);
       }
    }, []);
 
    return null;
 }
+
+

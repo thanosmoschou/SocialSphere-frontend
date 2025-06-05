@@ -4,12 +4,6 @@ import { useAuth } from "../hooks/use-auth";
 
 export const ProtectedRoute = () => {
   const { isAuthenticated } = useAuth();
-  const location = useLocation();
 
-  if (!isAuthenticated) {
-    sessionStorage.setItem("redirectPath", location.pathname);
-    return <Navigate to="/sign-in" replace />;
-  }
-
-  return <Outlet />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/sign-in" replace />;
 };

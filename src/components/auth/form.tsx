@@ -26,13 +26,7 @@ export const Form = (props: FormProps) => {
     }
 
     const login = useLogin((data) => {
-        console.log(data);
-
-        const redirectPath = sessionStorage.getItem("redirectPath") || "/";
-        sessionStorage.removeItem("redirectPath");
-        navigate(redirectPath, { replace: true });
-
-        console.log("login successful");
+        navigate("/"); 
     }, (error) => {
         console.log(error);
         setError(error.message || "Login failed. Please try again.");

@@ -2,17 +2,31 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Redirecting...</title>
+    <meta charset="utf-8">
+    <title>Page Not Found</title>
     <script type="text/javascript">
-        const redirectTo = sessionStorage.redirectPath || "/";
-        sessionStorage.removeItem("redirectPath");
-        location.href = "/" + "SocialSphere-frontend" + "/?redirect=" + redirectTo;
+        // Αποθηκεύουμε την αρχική διαδρομή που ζητήθηκε (π.χ. /SocialSphere-frontend/sign-up)
+        // Αυτό είναι σημαντικό για να μπορεί το React Router να πλοηγηθεί στη σωστή σελίδα.
+        sessionStorage.setItem('redirectUrl', location.pathname + location.search);
+
+        // Δυναμικός προσδιορισμός του base path.
+        // Εάν η εφαρμογή είναι στο thanosmoschou.github.io/SocialSphere-frontend/,
+        // το basePath θα είναι /SocialSphere-frontend/.
+        const pathSegments = window.location.pathname.split('/');
+        let basePath = '/';
+        // Αν υπάρχει δεύτερο segment (όπως "SocialSphere-frontend"), χρησιμοποιήστε το ως basePath
+        if (pathSegments.length > 1 && pathSegments[1].length > 0) {
+            basePath = '/' + pathSegments[1] + '/';
+        }
+
+        // Ανακατεύθυνση στο index.html της εφαρμογής.
+        // Το React Router θα αναλάβει την περαιτέρω πλοήγηση χρησιμοποιώντας το stored redirectUrl.
+        window.location.replace(basePath);
     </script>
 </head>
 
 <body>
-    Redirecting...
+    <p>If you are seeing this, something went wrong, and you should be redirected shortly.</p>
 </body>
 
 </html>

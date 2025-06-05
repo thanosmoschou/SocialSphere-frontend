@@ -24,16 +24,16 @@ function App() {
                <Route path="/sign-up" element={<SignUp />} />
                <Route path="/sign-in" element={<SignIn />} />
                <Route path="/" element={<ProtectedRoute />}>
-                  <Route path="/" element={<Home />}>
-                     <Route path="/feed" element={<Feed />} />
-                     <Route path="/messages" element={<MessageList />} />
-                     <Route path="/messages/:id" element={<Message />} />
-                     <Route path="/discover" element={<Discover />} />
-                     <Route path="/profile/:userId" element={<Profile />} />
-                  </Route>
+                  <Route index element={<Home />} />
+                  <Route path="feed" element={<Feed />} />
+                  <Route path="messages" element={<MessageList />} />
+                  <Route path="messages/:id" element={<Message />} />
+                  <Route path="discover" element={<Discover />} />
+                  <Route path="profile/:userId" element={<Profile />} />
                </Route>
                <Route path="*" element={<NotFound />} />
             </Routes>
+
          </NavProvider>
       </UserProvider>
    );

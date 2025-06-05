@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        const redirectTo = sessionStorage.redirectPath || "/";
+        sessionStorage.removeItem("redirectPath");
+        location.href = "/" + "SocialSphere-frontend" + "/?redirect=" + redirectTo;
+    </script>
+</head>
+
+<body>
+    Redirecting...
+</body>
+
+</html>

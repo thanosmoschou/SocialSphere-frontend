@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "./App.css";
 import { SignIn } from "./pages/sign-in";
 import { SignUp } from "./pages/sign-up";
@@ -18,6 +19,7 @@ function App() {
       // Route configuration
       <UserProvider>
          <NavProvider>
+            <RedirectHandler />
             <Routes>
                <Route path="/sign-up" element={<SignUp />} />
                <Route path="/sign-in" element={<SignIn />} />
@@ -38,3 +40,22 @@ function App() {
 }
 
 export default App;
+
+// Helper for redirects
+function RedirectHandler() {
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect");
+
+      if (redirect && window.location.pathname !== redirect) {
+         navigate(redirect, { replace: true });
+         window.history.replaceState({}, '', window.location.pathname);
+      }
+   }, []);
+
+   return null;
+}
+
+

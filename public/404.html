@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; URL=./?redirect=" />
+    <script>
+        // Παίρνουμε το path μετά το domain
+        var path = window.location.pathname;
+        // Αν υπάρχει βάση (basename), πρόσθεσέ την εδώ πχ '/SocialSphere-frontend'
+        var base = "/SocialSphere-frontend";
+        // Φτιάχνουμε το πλήρες redirect URL
+        var redirectUrl = base + "/?redirect=" + encodeURIComponent(path.replace(base, ''));
+        // Ανακατεύθυνση
+        window.location.href = redirectUrl;
+    </script>
+</head>
+
+<body>
+    Redirecting...
+</body>
+
+</html>

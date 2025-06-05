@@ -7,10 +7,17 @@
     <script type="text/javascript">
         // Δυναμικός προσδιορισμός του base path (π.χ. /SocialSphere-frontend/)
         const pathSegments = window.location.pathname.split('/');
-        let basePath = '/';
-        // Αν υπάρχει δεύτερο segment (όπως "SocialSphere-frontend"), χρησιμοποιήστε το ως basePath
+        // Αρχικοποιούμε το basePath με την επιθυμητή σταθερή τιμή.
+        let basePath = '/SocialSphere-frontend/';
+        // Αυτό το κομμάτι κώδικα μπορεί να παραμείνει αν θέλετε τη δυνατότητα δυναμικού εντοπισμού
+        // σε περίπτωση που το basePath δεν είναι πάντα "/SocialSphere-frontend/".
+        // Για σταθερό basePath "/SocialSphere-frontend/", αυτό το if statement δεν θα αλλάξει την τιμή.
         if (pathSegments.length > 1 && pathSegments[1].length > 0) {
-            basePath = '/' + pathSegments[1] + '/';
+            // Ελέγχουμε αν το πρώτο segment μετά τον hostname είναι το "SocialSphere-frontend"
+            // για να διασφαλίσουμε ότι το basePath παραμένει σωστό.
+            if (pathSegments[1] === "SocialSphere-frontend") {
+                basePath = '/' + pathSegments[1] + '/';
+            }
         }
 
         // Παίρνουμε την πλήρη διαδρομή που ζητήθηκε (π.χ. /SocialSphere-frontend/sign-up)

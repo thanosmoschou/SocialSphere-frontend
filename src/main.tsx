@@ -9,7 +9,7 @@ import { queryClient } from './lib/queryClient';
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
       <QueryClientProvider client={queryClient}>
-         <BrowserRouter basename='/SocialSphere-frontend'>
+         <BrowserRouter basename={import.meta.env.VITE_APP_BASE_URL}>
             <App />
          </BrowserRouter>
       </QueryClientProvider>

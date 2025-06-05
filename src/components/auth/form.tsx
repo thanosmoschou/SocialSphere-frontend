@@ -26,9 +26,7 @@ export const Form = (props: FormProps) => {
     }
 
     const login = useLogin((data) => {
-        console.log(data);
         navigate("/"); 
-        console.log("login successful");
     }, (error) => {
         console.log(error);
         setError(error.message || "Login failed. Please try again.");

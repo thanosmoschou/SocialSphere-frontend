@@ -27,7 +27,6 @@ export const registerUser = async (userData: {
    password: string;
    email: string;
 }) => {
-   console.log(userData);
    const res = await fetch(`${authUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -73,7 +72,7 @@ export const logout = () => {
    navigate("/sign-in");
 };
 
-export const apiFetch = async (url: string, options: RequestInit = {}, retry = false): Promise<any> => {
+export const apiFetch = async (url: string, options: RequestInit = {}): Promise<any> => {
   const accessToken = localStorage.getItem("accessToken");
 
   const res = await fetch(url, {
@@ -87,28 +86,31 @@ export const apiFetch = async (url: string, options: RequestInit = {}, retry = f
     },
   });
 
-  if (res.status === 401 && retry) {
+  if (res.status === 401) {
+    // Try to refresh the token
     const newToken = await tryRefreshToken();
     if (newToken) {
-      return apiFetch(url, options, false); // Retry once with new token
-    } else {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      window.location.href = "/sign-in";
-      return;
+      // Retry the request with the new token
+      return apiFetch(url, options);
     }
+    // If refresh failed, clear tokens and redirect
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    window.location.href = "/sign-in";
+    return;
   }
 
   if (!res.ok) {
     const error = await res.text();
     throw new Error(error || "Request failed");
   }
+
   // If the response is a json, return the json
   if (res.headers.get("content-type")?.includes("application/json")) {
     const data = await res.json();
     return data;
-  } else {
-    return res.text();
   }
+  
+  return res;
 };
 

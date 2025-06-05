@@ -7,7 +7,7 @@ const inputs = [
       label: "Username or Email",
       name: "username",
       type: "text",
-      placeholder: "d@gmail.com",
+      placeholder: "johndoe@gmail.com",
       required: true,
       minLength: 1,
    },
@@ -29,7 +29,7 @@ const messages = {
    button: "Sign In",
    linkText: "Don't have an account? ",
    link: "Sign Up",
-   href: "/sign-up",
+   href: "/SocialSphere-frontend/sign-up",
 };
 
 export const SignIn = () => {

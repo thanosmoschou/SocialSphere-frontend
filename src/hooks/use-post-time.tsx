@@ -1,7 +1,11 @@
 export const usePostTime = (date: string) => {
     const postDate = new Date(date);
     const currentDate = new Date();
-    const timeDifference = currentDate.getTime() - postDate.getTime();
+    
+    // Add 3 hours to account for the timezone difference
+    const adjustedPostDate = new Date(postDate.getTime() + (3 * 60 * 60 * 1000));
+    
+    const timeDifference = currentDate.getTime() - adjustedPostDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutesDifference = Math.floor(timeDifference / (1000 * 60));

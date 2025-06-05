@@ -6,17 +6,13 @@ import { Post } from "../feed/post";
 import { useEffect } from "react";
 import { apiFetch } from "../../api/auth";
 import { backendUrl } from "../../lib/constants";
-import { useAuth } from "../../hooks/use-auth";
 
 export const Feed = () => {
    const { user } = useUserContext();
-   const { accessToken, refreshToken } = useAuth();
    const { data: page, isLoading, error } = useQuery({
       queryKey: ["posts"],
       queryFn: () => fetchFeed(user!.userId),
    }); 
-
-   console.log("Access Token", accessToken);
    
    useEffect(() => {
       const markPostsAsSeen = async () => {

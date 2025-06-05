@@ -3,11 +3,16 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-        const redirectTo = sessionStorage.redirectPath || "/";
-        sessionStorage.removeItem("redirectPath");
-        location.href = "/" + "SocialSphere-frontend/" + "/?redirect=" + redirectTo;
+    <meta http-equiv="refresh" content="0; URL=./?redirect=" />
+    <script>
+        // Παίρνουμε το path μετά το domain
+        var path = window.location.pathname;
+        // Αν υπάρχει βάση (basename), πρόσθεσέ την εδώ πχ '/SocialSphere-frontend'
+        var base = "/SocialSphere-frontend";
+        // Φτιάχνουμε το πλήρες redirect URL
+        var redirectUrl = base + "/?redirect=" + encodeURIComponent(path.replace(base, ''));
+        // Ανακατεύθυνση
+        window.location.href = redirectUrl;
     </script>
 </head>
 

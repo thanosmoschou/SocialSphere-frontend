@@ -2,22 +2,29 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; URL=./?redirect=" />
-    <script>
-        // Παίρνουμε το path μετά το domain
-        var path = window.location.pathname;
-        // Αν υπάρχει βάση (basename), πρόσθεσέ την εδώ πχ '/SocialSphere-frontend'
-        var base = "/SocialSphere-frontend";
-        // Φτιάχνουμε το πλήρες redirect URL
-        var redirectUrl = base + "/?redirect=" + encodeURIComponent(path.replace(base, ''));
-        // Ανακατεύθυνση
-        window.location.href = redirectUrl;
+    <meta charset="utf-8">
+    <title>Page Not Found</title>
+    <script type="text/javascript">
+        const APP_BASE_PATH = '/SocialSphere-frontend/';
+
+        const requestedFullPath = window.location.pathname;
+
+        let pathForReactRouter = '/';
+
+        if (requestedFullPath.startsWith(APP_BASE_PATH)) {
+            pathForReactRouter = requestedFullPath.substring(APP_BASE_PATH.length - 1);
+        } else {
+            pathForReactRouter = requestedFullPath;
+        }
+
+        sessionStorage.setItem('redirectUrl', pathForReactRouter + window.location.search);
+
+        window.location.replace(APP_BASE_PATH);
     </script>
 </head>
 
 <body>
-    Redirecting...
+    <p>Redirecting...</p>
 </body>
 
 </html>

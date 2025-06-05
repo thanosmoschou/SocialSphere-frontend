@@ -3,7 +3,7 @@ import { Input } from "./form-input";
 import { useState } from "react";
 import { useLogin } from "../../features/use-login";
 import { useRegister } from "../../features/use-register";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 type FormProps = {
     inputs: InputProps[];
@@ -27,11 +27,7 @@ export const Form = (props: FormProps) => {
 
     const login = useLogin((data) => {
         console.log(data);
-
-        const redirectPath = sessionStorage.getItem("redirectPath") || "/";
-        sessionStorage.removeItem("redirectPath");
-        navigate(redirectPath, { replace: true });
-
+        navigate("/");
         console.log("login successful");
     }, (error) => {
         console.log(error);
@@ -40,11 +36,7 @@ export const Form = (props: FormProps) => {
 
     const register = useRegister((data) => {
         console.log(data);
-
-        const redirectPath = sessionStorage.getItem("redirectPath") || "/";
-        sessionStorage.removeItem("redirectPath");
-        navigate(redirectPath, { replace: true });
-
+        navigate("/");
         console.log("register successful");
     }, (error) => {
         console.log(error);
@@ -94,12 +86,12 @@ export const Form = (props: FormProps) => {
 
             <div className="text-center text-gray-400 text-sm">
                 {props.info.linkText}
-                <a
-                    href={props.info.href}
+                <Link
+                    to={props.info.href}
                     className="text-white font-medium hover:underline"
                 >
                     {props.info.link}
-                </a>
+                </Link>
             </div>
         </form>
     )

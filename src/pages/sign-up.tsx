@@ -44,7 +44,7 @@ const messages = {
    button: "Sign Up",
    linkText: "Already have an account? ",
    link: "Sign In",
-   href: "/SocialSphere-frontend/sign-in",
+   href: "/sign-in",
 };
 
 export const SignUp = () => {
